@@ -1,6 +1,7 @@
 #include <Player.hpp>
-#include <GameController.hpp>
 #include <Follower.hpp>
+#include <GameController.hpp>
+
 
 int main()
 {

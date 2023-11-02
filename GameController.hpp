@@ -18,6 +18,7 @@ private:
     Texture backgroundTexture;
     Sprite background;
     Music music;
+    Follower bitch;
     //Clock clock;  needed in future for real-time updating
 
 public:
@@ -48,6 +49,7 @@ public:
         window.draw(background);
         player.drawTo(window);
         player.update();
+        bitch.drawTo(window);
         window.display();
     }
 
