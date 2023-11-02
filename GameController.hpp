@@ -49,6 +49,7 @@ public:
         window.draw(background);
         player.drawTo(window);
         player.update();
+        bitch.detectCollision();    //DOES NOT WORK
         bitch.drawTo(window);
         window.display();
     }

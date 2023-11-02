@@ -17,7 +17,7 @@ private:
     Texture texture;
     Sprite sprite;
     Clock clock;
-    float xPos = 100, yPos = 100;
+    float xPos = 200, yPos = 200;
 
     //will be adjusted with buffs, will need setSpeed function later
     int speed = 10;
@@ -96,6 +96,11 @@ public:
     void drawTo(RenderWindow &window)
     {
         window.draw(sprite);
+    }
+
+    Sprite getSprite()
+    {
+        return sprite;
     }
 
     Vector2f getPosition()
