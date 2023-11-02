@@ -18,9 +18,9 @@ private:
 public:
 	Follower()
 	{
-		rect.setFillColor(Color::White);
+		rect.setFillColor(Color::Red);
 		rect.setPosition(100.f, 100.f);
-		rect.setSize(Vector2f(20.f, 20.f));
+		rect.setSize(Vector2f(50.f, 50.f));
 	}
 
 	void drawTo(RenderWindow &window)
