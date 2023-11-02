@@ -9,5 +9,6 @@ int main()
 
     game.run();
 
+    cout << "test" << endl;
     return 0;
 }
