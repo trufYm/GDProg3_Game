@@ -17,6 +17,7 @@ private:
     Texture texture;
     Sprite sprite;
     Clock clock;
+    Follower npc;
     float xPos = 200, yPos = 200;
 
     //will be adjusted with buffs, will need setSpeed function later
@@ -37,9 +38,8 @@ public:
     {
         //Default constructor
         if (!texture.loadFromFile("donpersimmon.png"))
-        {
             cout << "Error loading player texture." << endl;
-        }
+
         sprite.setTexture(texture);
         sprite.setPosition(xPos, yPos);
     }
@@ -48,9 +48,8 @@ public:
     {
         playerName = name;
         if (!texture.loadFromFile("donpersimmon.png"))
-        {
             cout << "Error loading player texture." << endl;
-        }
+
         sprite.setTexture(texture);
         sprite.setPosition(xPos, yPos);
     }
@@ -74,6 +73,16 @@ public:
             down = false;
             left = false;
             right = false;
+        }
+    }
+
+    void detectCollision()
+    {
+        Vector2f position(xPos, yPos);
+        if (npc.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+        {
+            cout << "It gets here" << endl;
+            npc.move(position);
         }
     }
 
@@ -101,12 +110,5 @@ public:
     Sprite getSprite()
     {
         return sprite;
-    }
-
-    Vector2f getPosition()
-    {
-        Vector2f position(xPos, yPos);
-
-        return position;
     }
 };

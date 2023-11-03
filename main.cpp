@@ -1,5 +1,5 @@
-#include <Player.hpp>
 #include <Follower.hpp>
+#include <Player.hpp>
 #include <GameController.hpp>
 
 
@@ -9,6 +9,5 @@ int main()
 
     game.run();
 
-    cout << "test" << endl;
     return 0;
 }

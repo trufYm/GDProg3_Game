@@ -18,7 +18,7 @@ private:
     Texture backgroundTexture;
     Sprite background;
     Music music;
-    Follower bitch;
+    Follower npc;
     //Clock clock;  needed in future for real-time updating
 
 public:
@@ -26,17 +26,15 @@ public:
     {
         //Default constructor
         if (!backgroundTexture.loadFromFile("grass-bg.jpg"))
-        {
             cout << "Error loading background." << endl;
-        }
 
         if (!music.openFromFile("holoBossaNova.wav"))
-        {
             cout << "Error loading music file." << endl;
-        }
+
         music.play();
 
         Vector2u size = backgroundTexture.getSize();
+
         background.setTexture(backgroundTexture);
 
         window.create(VideoMode(size.x, size.y), "GDPROG3 MCO1 PROTOTYPE");
@@ -48,10 +46,14 @@ public:
         window.clear();
         window.draw(background);
         player.drawTo(window);
-        player.update();
-        bitch.detectCollision();    //DOES NOT WORK
-        bitch.drawTo(window);
+        npc.drawTo(window);
         window.display();
+    }
+
+    void logicUpdate()
+    {
+        player.update();
+        player.detectCollision();
     }
 
     //Handles events and sends them to appropriate function
@@ -59,18 +61,14 @@ public:
     {
         while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed)
-            {
+            if (event.type == Event::Closed || event.key.code == Keyboard::Escape)
                 window.close();
-            }
-            else if (event.type == Event::KeyPressed)
-            {
+
+            if (event.type == Event::KeyPressed)
                 player.processEvents(event.key.code, true);
-            }
-            else if (event.type == Event::KeyReleased)
-            {
+
+            if (event.type == Event::KeyReleased)
                 player.processEvents(event.key.code, false);
-            }
         }
     }
 
@@ -81,6 +79,7 @@ public:
             Event event{};
             eventHandler(event);
             render();
+            logicUpdate();
         }
     }
 
