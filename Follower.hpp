@@ -25,10 +25,8 @@ public:
 			cout << "Bad" << endl;
 		
 		rect.setTexture(texture);
-		rect.setScale(0.25f, 0.25f);
-		rect.setPosition(100.f, 100.f);
-	
-		
+		rect.setScale(0.50f, 0.50f);
+		rect.setPosition(500.f, 500.f);
 	}
 
 	FloatRect getGlobalBounds()

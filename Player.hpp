@@ -78,11 +78,48 @@ public:
 
     void detectCollision()
     {
-        Vector2f position(xPos, yPos);
-        if (npc.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+        FloatRect playerBounds = sprite.getGlobalBounds();
+        FloatRect npcBounds = npc.getGlobalBounds();
+
+        if (npcBounds.intersects(playerBounds))
         {
-            cout << "It gets here" << endl;
-            npc.move(position);
+            cout << "Collision!" << endl;
+
+            //Bottom Collision
+            if (playerBounds.top < npcBounds.top
+                && playerBounds.top + playerBounds.height < npcBounds.top + npcBounds.height
+                && playerBounds.left < npcBounds.left + npcBounds.width
+                && playerBounds.left + playerBounds.width > npcBounds.left)
+            {
+                sprite.setPosition(playerBounds.left, npcBounds.top - playerBounds.height);
+            }
+
+            //Top Collision
+            else if (playerBounds.top > npcBounds.top
+                && playerBounds.top + playerBounds.height > npcBounds.top + npcBounds.height
+                && playerBounds.left < npcBounds.left + npcBounds.width
+                && playerBounds.left + playerBounds.width > npcBounds.left)
+            {
+                sprite.setPosition(playerBounds.left, npcBounds.top + npcBounds.height);
+            }
+
+            //Right Collision
+            else if (playerBounds.left < npcBounds.left
+                && playerBounds.left + playerBounds.width < npcBounds.left + npcBounds.width
+                && playerBounds.top < npcBounds.top + npcBounds.height
+                && playerBounds.top + playerBounds.height > npcBounds.top)
+            {
+                sprite.setPosition(npcBounds.left - playerBounds.width, playerBounds.top);
+            }
+
+            //Left Collision
+            else if (playerBounds.left > npcBounds.left
+                && playerBounds.left + playerBounds.width > npcBounds.left + npcBounds.width
+                && playerBounds.top < npcBounds.top + npcBounds.height
+                && playerBounds.top + playerBounds.height > npcBounds.top)
+            {
+                sprite.setPosition(npcBounds.left + npcBounds.width, playerBounds.top);
+            }
         }
     }
 

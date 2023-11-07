@@ -45,16 +45,23 @@ public:
     {
         window.clear();
         window.draw(background);
+        
+        player.update();
+        player.detectCollision();
         player.drawTo(window);
+
         npc.drawTo(window);
+
         window.display();
     }
 
-    void logicUpdate()
+
+    //KILL ME
+    /*void logicUpdate()
     {
-        player.update();
-        player.detectCollision();
-    }
+        
+        
+    }*/
 
     //Handles events and sends them to appropriate function
     void eventHandler(Event event)
@@ -79,7 +86,7 @@ public:
             Event event{};
             eventHandler(event);
             render();
-            logicUpdate();
+            //logicUpdate();
         }
     }
 
