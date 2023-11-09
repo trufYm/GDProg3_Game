@@ -33,7 +33,7 @@ public:
 
         music.play();
 
-        Vector2u size = backgroundTexture.getSize();
+        Vector2u size = backgroundTexture.getSize(); //Should change this to make background size depend on window size
 
         background.setTexture(backgroundTexture);
 
