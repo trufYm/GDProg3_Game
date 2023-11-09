@@ -16,12 +16,11 @@ private:
     string playerName;
     Texture texture;
     Sprite sprite;
-    //Follower npc;
     Clock clock;
     Vector2f pos;
 
     //will be adjusted with buffs, will need setSpeed function later
-    int speed = 10;
+    float speed = 10;
 
     //for movement
     bool up = false;
@@ -34,9 +33,8 @@ private:
     float mult = 60.f;
 
 public:
-    Player()
+    Player() //Default constructor
     {
-        //Default constructor
         if (!texture.loadFromFile("donpersimmon.png"))
             cout << "Error loading player texture." << endl;
 
@@ -60,6 +58,7 @@ public:
         sprite.setPosition(pos);
     }
 
+    //Process keyboard input
     void processEvents(Keyboard::Key key, bool isPressed)
     {
         if (isPressed)
@@ -82,6 +81,8 @@ public:
         }
     }
 
+    /*Main movement function, takes current speed value and multiplies by delta time
+    and a multiplier (depending on desired FPS) to be independent from framerate*/
     void update()
     {
         Vector2f movement;
@@ -98,6 +99,8 @@ public:
         sprite.move(movement);
     }
 
+    //Helper functions
+
     void drawTo(RenderWindow& window)
     {
         window.draw(sprite);
@@ -110,7 +113,7 @@ public:
 
     Vector2f getPosition()
     {
-        return pos;
+        return sprite.getPosition();
     }
 
     FloatRect getGlobalBounds()
@@ -121,5 +124,10 @@ public:
     void setPosition(float x, float y)
     {
         sprite.setPosition(x, y);
+    }
+
+    float getSpeed()
+    {
+        return speed;
     }
 };

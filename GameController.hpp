@@ -38,7 +38,7 @@ public:
         background.setTexture(backgroundTexture);
 
         window.create(VideoMode(size.x, size.y), "GDPROG3 MCO1 PROTOTYPE");
-        //window.setFramerateLimit(60);     used for testing framerate independent gameplay
+        //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
     }
 
     //Put here because i thought problem was with different instance of Follower class in Player and GameController was fucking up collided bool
@@ -47,51 +47,9 @@ public:
         FloatRect playerBounds = player.getGlobalBounds();
         FloatRect npcBounds = npc.getGlobalBounds();
 
-        Follower npc;
-
         if (npcBounds.intersects(playerBounds))
         {
-            cout << "Collision!" << endl;
-
-            //Bottom Collision
-            if (playerBounds.top < npcBounds.top
-                && playerBounds.top + playerBounds.height < npcBounds.top + npcBounds.height
-                && playerBounds.left < npcBounds.left + npcBounds.width
-                && playerBounds.left + playerBounds.width > npcBounds.left)
-            {
-                npc.setCollided(true);
-                player.setPosition(playerBounds.left, npcBounds.top - playerBounds.height);
-            }
-
-            //Top Collision
-            else if (playerBounds.top > npcBounds.top
-                && playerBounds.top + playerBounds.height > npcBounds.top + npcBounds.height
-                && playerBounds.left < npcBounds.left + npcBounds.width
-                && playerBounds.left + playerBounds.width > npcBounds.left)
-            {
-                npc.setCollided(true);
-                player.setPosition(playerBounds.left, npcBounds.top + npcBounds.height);
-            }
-
-            //Right Collision
-            else if (playerBounds.left < npcBounds.left
-                && playerBounds.left + playerBounds.width < npcBounds.left + npcBounds.width
-                && playerBounds.top < npcBounds.top + npcBounds.height
-                && playerBounds.top + playerBounds.height > npcBounds.top)
-            {
-                npc.setCollided(true);
-                player.setPosition(npcBounds.left - playerBounds.width, playerBounds.top);
-            }
-
-            //Left Collision
-            else if (playerBounds.left > npcBounds.left
-                && playerBounds.left + playerBounds.width > npcBounds.left + npcBounds.width
-                && playerBounds.top < npcBounds.top + npcBounds.height
-                && playerBounds.top + playerBounds.height > npcBounds.top)
-            {
-                npc.setCollided(true);
-                player.setPosition(npcBounds.left + npcBounds.width, playerBounds.top);
-            }
+            npc.setCollided(true);
         }
     }
 
@@ -106,7 +64,6 @@ public:
        
         if (npc.hasCollided())
         {
-            cout << "Has collided!" << endl;
             npc.followPlayer(player.getPosition());
         }
 
@@ -119,7 +76,9 @@ public:
     /*void logicUpdate()
     {
         
-
+        Might be needed in the future???
+        Idk a logicUpdate function sounds like a good thing to have to
+        separate draw and update/logic methods
         
     }*/
 
@@ -139,6 +98,7 @@ public:
         }
     }
 
+    //Run *beat drops*
     void run()
     {
         while (window.isOpen())
