@@ -41,7 +41,7 @@ public:
         //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
     }
 
-    //Put here because i thought problem was with different instance of Follower class in Player and GameController was fucking up collided bool
+    //Detect collision between follower object and player
     void detectCollision()
     {
         FloatRect playerBounds = player.getGlobalBounds();
@@ -53,6 +53,7 @@ public:
         }
     }
 
+    //Does everything as of the moment. Draws all elements and updates current gamestate.
     void render()
     {
         window.clear();
