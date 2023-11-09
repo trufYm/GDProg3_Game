@@ -17,7 +17,7 @@ private:
     Texture texture;
     Sprite sprite;
     Clock clock;
-    Vector2f pos;
+    //Vector2f pos;
 
     //will be adjusted with buffs, will need setSpeed function later
     float speed = 10;
@@ -38,11 +38,11 @@ public:
         if (!texture.loadFromFile("donpersimmon.png"))
             cout << "Error loading player texture." << endl;
 
-        pos.x = 200;
-        pos.y = 200;
+        //pos.x = 200;
+        //pos.y = 200;
 
         sprite.setTexture(texture);
-        sprite.setPosition(pos);
+        sprite.setPosition(200, 200);
     }
 
     Player(string name)
@@ -51,11 +51,11 @@ public:
         if (!texture.loadFromFile("donpersimmon.png"))
             cout << "Error loading player texture." << endl;
 
-        pos.x = 200;
-        pos.y = 200;
+        //pos.x = 200;
+        //pos.y = 200;
 
         sprite.setTexture(texture);
-        sprite.setPosition(pos);
+        sprite.setPosition(200, 200);
     }
 
     //Process keyboard input
