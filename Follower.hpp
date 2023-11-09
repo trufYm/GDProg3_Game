@@ -25,7 +25,7 @@ public:
 			cout << "Bad" << endl;
 		
 		rect.setTexture(texture);
-		rect.setScale(0.50f, 0.50f);
+		rect.setScale(1, 1);
 		rect.setPosition(500.f, 500.f);
 	}
 
