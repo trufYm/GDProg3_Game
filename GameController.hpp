@@ -19,7 +19,7 @@ private:
     Sprite background;
     Music music;
     Follower npc;
-    //Clock clock;  needed in future for real-time updating
+    //Clock clock;  might be needed in future for real-time updating
 
 public:
     GameController()
@@ -41,25 +41,85 @@ public:
         //window.setFramerateLimit(60);     used for testing framerate independent gameplay
     }
 
+    //Put here because i thought problem was with different instance of Follower class in Player and GameController was fucking up collided bool
+    void detectCollision()
+    {
+        FloatRect playerBounds = player.getGlobalBounds();
+        FloatRect npcBounds = npc.getGlobalBounds();
+
+        Follower npc;
+
+        if (npcBounds.intersects(playerBounds))
+        {
+            cout << "Collision!" << endl;
+
+            //Bottom Collision
+            if (playerBounds.top < npcBounds.top
+                && playerBounds.top + playerBounds.height < npcBounds.top + npcBounds.height
+                && playerBounds.left < npcBounds.left + npcBounds.width
+                && playerBounds.left + playerBounds.width > npcBounds.left)
+            {
+                npc.setCollided(true);
+                player.setPosition(playerBounds.left, npcBounds.top - playerBounds.height);
+            }
+
+            //Top Collision
+            else if (playerBounds.top > npcBounds.top
+                && playerBounds.top + playerBounds.height > npcBounds.top + npcBounds.height
+                && playerBounds.left < npcBounds.left + npcBounds.width
+                && playerBounds.left + playerBounds.width > npcBounds.left)
+            {
+                npc.setCollided(true);
+                player.setPosition(playerBounds.left, npcBounds.top + npcBounds.height);
+            }
+
+            //Right Collision
+            else if (playerBounds.left < npcBounds.left
+                && playerBounds.left + playerBounds.width < npcBounds.left + npcBounds.width
+                && playerBounds.top < npcBounds.top + npcBounds.height
+                && playerBounds.top + playerBounds.height > npcBounds.top)
+            {
+                npc.setCollided(true);
+                player.setPosition(npcBounds.left - playerBounds.width, playerBounds.top);
+            }
+
+            //Left Collision
+            else if (playerBounds.left > npcBounds.left
+                && playerBounds.left + playerBounds.width > npcBounds.left + npcBounds.width
+                && playerBounds.top < npcBounds.top + npcBounds.height
+                && playerBounds.top + playerBounds.height > npcBounds.top)
+            {
+                npc.setCollided(true);
+                player.setPosition(npcBounds.left + npcBounds.width, playerBounds.top);
+            }
+        }
+    }
+
     void render()
     {
         window.clear();
         window.draw(background);
         
         player.update();
-        player.detectCollision();
-        player.drawTo(window);
 
+        detectCollision();
+       
+        if (npc.hasCollided())
+        {
+            cout << "Has collided!" << endl;
+            npc.followPlayer(player.getPosition());
+        }
+
+        player.drawTo(window);
         npc.drawTo(window);
 
         window.display();
     }
 
-
-    //KILL ME
     /*void logicUpdate()
     {
         
+
         
     }*/
 
