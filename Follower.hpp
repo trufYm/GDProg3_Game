@@ -20,6 +20,7 @@ private:
 	Clock clock;
 	Player player;
 	bool collided = false;
+	float dt = 0;
 
 public:
 	Follower()
@@ -31,6 +32,8 @@ public:
 		pos.x = 500;
 		pos.y = 500;
 
+		dt = clock.restart().asSeconds();
+		
 		rect.setTexture(texture);
 		rect.setPosition(pos);
 	}
@@ -40,13 +43,17 @@ public:
 	void followPlayer(Vector2f playerPos)
 	{
 		Vector2f currentPos = rect.getPosition();
-		Vector2f movement;
+		Vector2f movement(0,0);
 
-		float dt = clock.restart().asSeconds(); //First instance is too high and makes sprite too fast. Idea: lock framerate and get rid of jittery movement
+		 //First instance is too high and makes sprite too fast. Idea: lock framerate and get rid of jittery movement
 		float mult = 60.f;
+		float buffer = 60.0f;
 
-		while (collided)
+		if (collided)
 		{
+			float step = (player.getSpeed() * 0.50f) * dt * mult;
+			
+			/*
 			//Player is to the left, same y level
 			if (playerPos.x < currentPos.x && playerPos.y == currentPos.y)
 			{
@@ -122,6 +129,23 @@ public:
 			else
 				rect.move(0,0);
 				break;
+			*/
+
+			if (playerPos.x > currentPos.x + buffer)
+				movement.x += step;
+			else if (playerPos.x < currentPos.x - buffer)
+				movement.x -= step;
+
+			if (playerPos.y > currentPos.y + buffer)
+				movement.y += step;
+			else if (playerPos.y < currentPos.y - buffer)
+				movement.y -= step;
+
+			if (movement.x != 0 || movement.y != 0)
+				rect.move(movement);
+			//else
+				//rect.move(0,0);
+				//break;
 		}
 	}
 

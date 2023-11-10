@@ -38,7 +38,7 @@ public:
         background.setTexture(backgroundTexture);
 
         window.create(VideoMode(size.x, size.y), "GDPROG3 MCO1 PROTOTYPE");
-        //window.setFramerateLimit(20);     //used for testing framerate independent gameplay
+        //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
     }
 
     //Detect collision between follower object and player
@@ -64,9 +64,10 @@ public:
         {
             npc.followPlayer(player.getPosition());
         }
-
-        player.drawTo(window);
+        
         npc.drawTo(window);
+        player.drawTo(window);
+        
 
         window.display();
     }
@@ -96,7 +97,7 @@ public:
         }
     }
 
-    //Run *beat drops*
+     //Run *beat drops* ez4ence ence ence
     void run()
     {
         while (window.isOpen())
