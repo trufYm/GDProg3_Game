@@ -35,77 +35,87 @@ public:
 		rect.setPosition(pos);
 	}
 
-	//Take player's current position and move towards it. Uses same frame independent movement as player
+	/*Take player's current position and move towards it.
+	Uses same frame independent movement as player.*/
 	void followPlayer(Vector2f playerPos)
 	{
 		Vector2f currentPos = rect.getPosition();
 		Vector2f movement;
 
-		float dt = clock.restart().asSeconds();
+		float dt = clock.restart().asSeconds(); //First instance is too high and makes sprite too fast. Idea: lock framerate and get rid of jittery movement
+		float mult = 60.f;
 
 		while (collided)
 		{
 			//Player is to the left, same y level
 			if (playerPos.x < currentPos.x && playerPos.y == currentPos.y)
 			{
-				movement.x -= (player.getSpeed() * 0.60f) * dt * 60.f;
-				//movement.y = 0;
+				movement.x -= (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y = 0;
+				
 				rect.move(movement);
 			}
 
 			//Player is to the right, same y level
 			else if (playerPos.x > currentPos.x && playerPos.y == currentPos.y)
 			{
-				movement.x += (player.getSpeed() * 0.60f) * dt * 60.f;
-				//movement.y = 0;
-				rect.move(movement);
-			}
-
-			//Player is above, same x level
-			else if (playerPos.x == currentPos.x && playerPos.y > currentPos.y)
-			{
-				//movement.x = 0;
-				movement.y += (player.getSpeed() * 0.60f) * dt * 60.f;
+				movement.x += (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y = 0;
+				
 				rect.move(movement);
 			}
 
 			//Player is below, same x level
+			else if (playerPos.x == currentPos.x && playerPos.y > currentPos.y)
+			{
+				movement.x = 0;
+				movement.y += (player.getSpeed() * 0.60f) * dt * mult;
+				
+				rect.move(movement);
+			}
+
+			//Player is above, same x level
 			else if (playerPos.x == currentPos.x && playerPos.y < currentPos.y)
 			{
-				//movement.x = 0;
-				movement.y -= (player.getSpeed() * 0.60f) * dt * 60.f;
-				rect.move(movement);
-			}
-
-			//Player is to the bottom left
-			else if (playerPos.x < currentPos.x && playerPos.y < currentPos.y)
-			{
-				movement.x -= (player.getSpeed() * 0.60f) * dt * 60.f;
-				movement.y -= (player.getSpeed() * 0.60f) * dt * 60.f;
-				rect.move(movement);
-			}
-
-			//Player is to the bottom right
-			else if (playerPos.x > currentPos.x && playerPos.y < currentPos.y)
-			{
-				movement.x = (player.getSpeed() * 0.60f) * dt * 60.f;
-				movement.y -= (player.getSpeed() * 0.60f) * dt * 60.f;
+				movement.x = 0;
+				movement.y -= (player.getSpeed() * 0.60f) * dt * mult;
+				
 				rect.move(movement);
 			}
 
 			//Player is to the top left
-			else if (playerPos.x < currentPos.x && playerPos.y > currentPos.y)
+			else if (playerPos.x < currentPos.x && playerPos.y < currentPos.y)
 			{
-				movement.x -= (player.getSpeed() * 0.60f) * dt * 60.f;
-				movement.y = (player.getSpeed() * 0.60f) * dt * 60.f;
+				movement.x -= (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y -= (player.getSpeed() * 0.60f) * dt * mult;
+
 				rect.move(movement);
 			}
 
 			//Player is to the top right
+			else if (playerPos.x > currentPos.x && playerPos.y < currentPos.y)
+			{
+				movement.x += (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y -= (player.getSpeed() * 0.60f) * dt * mult;
+
+				rect.move(movement);
+			}
+
+			//Player is to the bottom left
+			else if (playerPos.x < currentPos.x && playerPos.y > currentPos.y)
+			{
+				movement.x -= (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y += (player.getSpeed() * 0.60f) * dt * mult;
+
+				rect.move(movement);
+			}
+
+			//Player is to the bottom right
 			else if (playerPos.x > currentPos.x && playerPos.y > currentPos.y)
 			{
-				movement.x = (player.getSpeed() * 0.60f) * dt * 60.f;
-				movement.y = (player.getSpeed() * 0.60f) * dt * 60.f;
+				movement.x += (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y += (player.getSpeed() * 0.60f) * dt * mult;
+
 				rect.move(movement);
 			}
 

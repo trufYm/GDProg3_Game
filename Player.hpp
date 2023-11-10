@@ -81,7 +81,7 @@ public:
         }
     }
 
-    /*Main movement function, takes current speed value and multiplies by delta time
+    /*Main movement function. Takes current speed value and multiplies by delta time
     and a multiplier (depending on desired FPS) to be independent from framerate*/
     void update()
     {
@@ -119,11 +119,6 @@ public:
     FloatRect getGlobalBounds()
     {
         return sprite.getGlobalBounds();
-    }
-
-    void setPosition(float x, float y)
-    {
-        sprite.setPosition(x, y);
     }
 
     float getSpeed()

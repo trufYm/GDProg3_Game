@@ -38,16 +38,13 @@ public:
         background.setTexture(backgroundTexture);
 
         window.create(VideoMode(size.x, size.y), "GDPROG3 MCO1 PROTOTYPE");
-        //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
+        //window.setFramerateLimit(20);     //used for testing framerate independent gameplay
     }
 
     //Detect collision between follower object and player
     void detectCollision()
     {
-        FloatRect playerBounds = player.getGlobalBounds();
-        FloatRect npcBounds = npc.getGlobalBounds();
-
-        if (npcBounds.intersects(playerBounds))
+        if (npc.getGlobalBounds().intersects(player.getGlobalBounds()))
         {
             npc.setCollided(true);
         }
