@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
+#include <Player.hpp>
 
 using namespace std;
 using namespace sf;
@@ -13,28 +14,80 @@ using namespace sf;
 class Follower
 {
 private:
-	RectangleShape rect;
+	Sprite rect;
+	Texture texture;
+	Vector2f pos;
+	Clock clock;
 	Player player;
+	bool collided = false;
+	float dt = 0;
 
 public:
 	Follower()
 	{
-		rect.setFillColor(Color::Red);
-		rect.setPosition(100.f, 100.f);
-		rect.setSize(Vector2f(50.f, 50.f));
+		if (!texture.loadFromFile("akame(2).png"))
+			cout << "Bad" << endl;
+		
+		//NOTE: Need to change initial position to rand once multiple follower instances are implemented
+		pos.x = 500;
+		pos.y = 500;
+
+		dt = clock.restart().asSeconds();
+		
+		rect.setTexture(texture);
+		rect.setPosition(pos);
 	}
 
-	//NOT WORKING
-	void detectCollision()
+	/*Take player's current position and move towards it.
+	Uses same frame independent movement as player.
+	Buffer value is to separate follower from player sprite*/
+	void followPlayer(Vector2f playerPos)
 	{
-		if (rect.getGlobalBounds().intersects(player.getSprite().getGlobalBounds()))
+		Vector2f currentPos = rect.getPosition();
+		Vector2f movement(0,0);
+
+		float mult = 60.f;
+		float buffer = 60.0f;
+
+		if (collided)
 		{
-			rect.move(player.getPosition());
+			float step = (player.getSpeed() * 0.60f) * dt * mult;
+			
+			if (playerPos.x > currentPos.x + buffer)
+				movement.x += step;
+			else if (playerPos.x < currentPos.x - buffer)
+				movement.x -= step;
+
+			if (playerPos.y > currentPos.y + buffer)
+				movement.y += step;
+			else if (playerPos.y < currentPos.y - buffer)
+				movement.y -= step;
+
+			if (movement.x != 0 || movement.y != 0)
+				rect.move(movement);
 		}
 	}
 
-	void drawTo(RenderWindow &window)
+	//HELPER FUNCTIONS
+
+	FloatRect getGlobalBounds()
+	{
+		return rect.getGlobalBounds();
+	}
+
+	void setCollided(bool state)
+	{
+		collided = state;
+	}
+
+	bool hasCollided()
+	{
+		return collided;
+	}
+
+	void drawTo(RenderWindow& window)
 	{
 		window.draw(rect);
 	}
+
 };

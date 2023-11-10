@@ -17,10 +17,10 @@ private:
     Texture texture;
     Sprite sprite;
     Clock clock;
-    float xPos = 200, yPos = 200;
+    //Vector2f pos;
 
     //will be adjusted with buffs, will need setSpeed function later
-    int speed = 10;
+    float speed = 10;
 
     //for movement
     bool up = false;
@@ -33,28 +33,32 @@ private:
     float mult = 60.f;
 
 public:
-    Player()
+    Player() //Default constructor
     {
-        //Default constructor
         if (!texture.loadFromFile("donpersimmon.png"))
-        {
             cout << "Error loading player texture." << endl;
-        }
+
+        //pos.x = 200;
+        //pos.y = 200;
+
         sprite.setTexture(texture);
-        sprite.setPosition(xPos, yPos);
+        sprite.setPosition(200, 200);
     }
 
     Player(string name)
     {
         playerName = name;
         if (!texture.loadFromFile("donpersimmon.png"))
-        {
             cout << "Error loading player texture." << endl;
-        }
+
+        //pos.x = 200;
+        //pos.y = 200;
+
         sprite.setTexture(texture);
-        sprite.setPosition(xPos, yPos);
+        sprite.setPosition(200, 200);
     }
 
+    //Process keyboard input
     void processEvents(Keyboard::Key key, bool isPressed)
     {
         if (isPressed)
@@ -77,6 +81,8 @@ public:
         }
     }
 
+    /*Main movement function. Takes current speed value and multiplies by delta time
+    and a multiplier (depending on desired FPS) to be independent from framerate*/
     void update()
     {
         Vector2f movement;
@@ -93,7 +99,9 @@ public:
         sprite.move(movement);
     }
 
-    void drawTo(RenderWindow &window)
+    //Helper functions
+
+    void drawTo(RenderWindow& window)
     {
         window.draw(sprite);
     }
@@ -105,8 +113,16 @@ public:
 
     Vector2f getPosition()
     {
-        Vector2f position(xPos, yPos);
+        return sprite.getPosition();
+    }
 
-        return position;
+    FloatRect getGlobalBounds()
+    {
+        return sprite.getGlobalBounds();
+    }
+
+    float getSpeed()
+    {
+        return speed;
     }
 };
