@@ -56,4 +56,82 @@ else if (playerBounds.left > npcBounds.left
     npc.setCollided(true);
     //player.setPosition(npcBounds.left + npcBounds.width, playerBounds.top);
 }
+
+
+//THIS BLOCK MOVES THE FOLLOWER SPRITE TOWARDS THE PLAYER SPRITE WHILE IMPLEMENTING FPS INDEPENDENT MOVEMENT
+			//Player is to the left, same y level
+			if (playerPos.x < currentPos.x && playerPos.y == currentPos.y)
+			{
+				movement.x -= (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y = 0;
+
+				rect.move(movement);
+			}
+
+			//Player is to the right, same y level
+			else if (playerPos.x > currentPos.x && playerPos.y == currentPos.y)
+			{
+				movement.x += (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y = 0;
+
+				rect.move(movement);
+			}
+
+			//Player is below, same x level
+			else if (playerPos.x == currentPos.x && playerPos.y > currentPos.y)
+			{
+				movement.x = 0;
+				movement.y += (player.getSpeed() * 0.60f) * dt * mult;
+
+				rect.move(movement);
+			}
+
+			//Player is above, same x level
+			else if (playerPos.x == currentPos.x && playerPos.y < currentPos.y)
+			{
+				movement.x = 0;
+				movement.y -= (player.getSpeed() * 0.60f) * dt * mult;
+
+				rect.move(movement);
+			}
+
+			//Player is to the top left
+			else if (playerPos.x < currentPos.x && playerPos.y < currentPos.y)
+			{
+				movement.x -= (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y -= (player.getSpeed() * 0.60f) * dt * mult;
+
+				rect.move(movement);
+			}
+
+			//Player is to the top right
+			else if (playerPos.x > currentPos.x && playerPos.y < currentPos.y)
+			{
+				movement.x += (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y -= (player.getSpeed() * 0.60f) * dt * mult;
+
+				rect.move(movement);
+			}
+
+			//Player is to the bottom left
+			else if (playerPos.x < currentPos.x && playerPos.y > currentPos.y)
+			{
+				movement.x -= (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y += (player.getSpeed() * 0.60f) * dt * mult;
+
+				rect.move(movement);
+			}
+
+			//Player is to the bottom right
+			else if (playerPos.x > currentPos.x && playerPos.y > currentPos.y)
+			{
+				movement.x += (player.getSpeed() * 0.60f) * dt * mult;
+				movement.y += (player.getSpeed() * 0.60f) * dt * mult;
+
+				rect.move(movement);
+			}
+
+			else
+				rect.move(0,0);
+				break;
 */
