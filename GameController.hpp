@@ -18,8 +18,9 @@ private:
     Texture backgroundTexture;
     Sprite background;
     Music music;
-    Follower npc;
-    Clock clock;  //might be needed in future for real-time updating
+    vector<Follower> npcList;
+    Clock clock;
+    int followerCount = 0;
 
 public:
     GameController()
@@ -42,46 +43,62 @@ public:
     }
 
     //Detect collision between follower object and player
-    void detectCollision()
+    void detectPlayerCollision()
     {
-        if (npc.getGlobalBounds().intersects(player.getGlobalBounds()))
+        for (int i = 0; i < npcList.size(); i++)
         {
-            npc.setCollided(true);
+            if (npcList[i].getGlobalBounds().intersects(player.getGlobalBounds()))
+            {
+                npcList[i].setCollided(true);
+            }
         }
     }
 
-    //Does everything as of the moment. Draws all elements and updates current gamestate.
+    //Draws all elements
     void render()
     {
         window.clear();
         window.draw(background);
+
+        logicUpdate();
         
-        player.update();
-
-        detectCollision();
-       
-        float dt = clock.restart().asSeconds();
-
-        if (npc.hasCollided())
+        for (int i = 0; i < npcList.size(); i++)
         {
-            npc.followPlayer(player.getPosition(), dt);
+            npcList[i].drawTo(window);
         }
-        
-        npc.drawTo(window);
+
         player.drawTo(window);
         
-
         window.display();
     }
 
-    /*void logicUpdate()
+    //Updates current gamestate
+    void logicUpdate()
     {
-        
-        Might be needed in the future???
-        Idk a logicUpdate function sounds like a good thing to have to
-        separate draw and update/logic methods
-        
-    }*/
+        player.update();
+
+        detectPlayerCollision();
+
+        float dt = clock.restart().asSeconds();
+
+        if (followerCount < 5)
+        {
+            Follower entity(window);
+
+            npcList.push_back(entity);
+            followerCount++;
+        }
+
+        for (int i = 0; i < npcList.size(); i++)
+        {
+            if (npcList[i].hasCollided())
+            {
+                npcList[i].followPlayer(player.getPosition(), dt);
+                followerCount--;
+            }
+        }
+
+    }
 
     //Handles events and sends them to appropriate function
     void eventHandler(Event event)
@@ -107,7 +124,8 @@ public:
             Event event{};
             eventHandler(event);
             render();
-            //logicUpdate();
+
+        
         }
     }
 

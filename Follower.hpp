@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <time.h> 
+#include <cstdlib>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio/Music.hpp>
 #include <SFML/System.hpp>
@@ -17,7 +19,6 @@ private:
 	Sprite rect;
 	Texture texture;
 	Vector2f pos;
-	//Clock clock;
 	Player player;
 	bool collided = false;
 
@@ -27,9 +28,22 @@ public:
 		if (!texture.loadFromFile("akame(2).png"))
 			cout << "Bad" << endl;
 		
-		//NOTE: Need to change initial position to rand once multiple follower instances are implemented
 		pos.x = 500;
 		pos.y = 500;
+
+		rect.setTexture(texture);
+		rect.setPosition(pos);
+	}
+
+	Follower(RenderWindow &window)
+	{
+		if (!texture.loadFromFile("akame(2).png"))
+			cout << "Bad" << endl;
+
+		srand(time(NULL));
+
+		pos.x = rand() % window.getSize().x;
+		pos.y = rand() % window.getSize().y;
 
 		rect.setTexture(texture);
 		rect.setPosition(pos);
