@@ -19,7 +19,7 @@ private:
     Sprite background;
     Music music;
     Follower npc;
-    //Clock clock;  might be needed in future for real-time updating
+    Clock clock;  //might be needed in future for real-time updating
 
 public:
     GameController()
@@ -38,7 +38,7 @@ public:
         background.setTexture(backgroundTexture);
 
         window.create(VideoMode(size.x, size.y), "GDPROG3 MCO1 PROTOTYPE");
-        //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
+        //window.setFramerateLimit(30);     //used for testing framerate independent gameplay
     }
 
     //Detect collision between follower object and player
@@ -60,9 +60,11 @@ public:
 
         detectCollision();
        
+        float dt = clock.restart().asSeconds();
+
         if (npc.hasCollided())
         {
-            npc.followPlayer(player.getPosition());
+            npc.followPlayer(player.getPosition(), dt);
         }
         
         npc.drawTo(window);
