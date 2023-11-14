@@ -1,8 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <time.h> 
-#include <cstdlib>
+#include <random>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio/Music.hpp>
 #include <SFML/System.hpp>
@@ -20,32 +19,28 @@ private:
 	Texture texture;
 	Vector2f pos;
 	Player player;
-	bool collided = false;
+	bool playerCollided = false;
+	bool npcCollided = false;
 
 public:
 	Follower()
 	{
-		if (!texture.loadFromFile("akame(2).png"))
-			cout << "Bad" << endl;
 		
-		pos.x = 500;
-		pos.y = 500;
+		pos.x = 300;
+		pos.y = 300;
 
 		rect.setTexture(texture);
 		rect.setPosition(pos);
 	}
 
-	Follower(RenderWindow &window)
+	Follower(RenderWindow &window, Texture* texture)
 	{
-		if (!texture.loadFromFile("akame(2).png"))
-			cout << "Bad" << endl;
+		random_device random;
 
-		srand(time(NULL));
+		pos.x = random() % window.getSize().x;
+		pos.y = random() % window.getSize().y;
 
-		pos.x = rand() % window.getSize().x;
-		pos.y = rand() % window.getSize().y;
-
-		rect.setTexture(texture);
+		rect.setTexture(*texture);
 		rect.setPosition(pos);
 	}
 
@@ -60,7 +55,7 @@ public:
 		float mult = 60.f;
 		float buffer = 60.0f;
 		
-		if (collided)
+		if (playerCollided)
 		{
 			float step = (player.getSpeed() * 0.80f) * dt * mult;
 			
@@ -86,14 +81,14 @@ public:
 		return rect.getGlobalBounds();
 	}
 
-	void setCollided(bool state)
+	void setPlayerCollided(bool state)
 	{
-		collided = state;
+		playerCollided = state;
 	}
 
-	bool hasCollided()
+	bool hasPlayerCollided()
 	{
-		return collided;
+		return playerCollided;
 	}
 
 	void drawTo(RenderWindow& window)

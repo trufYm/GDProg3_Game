@@ -16,11 +16,12 @@ private:
     RenderWindow window;
     Player player;
     Texture backgroundTexture;
+    Texture followerTexture;
     Sprite background;
     Music music;
     vector<Follower> npcList;
     Clock clock;
-    int followerCount = 0;
+    float time_interval = 0;
 
 public:
     GameController()
@@ -32,6 +33,9 @@ public:
         if (!music.openFromFile("holoBossaNova.wav"))
             cout << "Error loading music file." << endl;
 
+        if (!followerTexture.loadFromFile("akame(2).png"))
+            cout << "Error loading follower texture" << endl;
+
         music.play();
 
         Vector2u size = backgroundTexture.getSize(); //Should change this to make background size depend on window size
@@ -40,6 +44,10 @@ public:
 
         window.create(VideoMode(size.x, size.y), "GDPROG3 MCO1 PROTOTYPE");
         //window.setFramerateLimit(30);     //used for testing framerate independent gameplay
+
+        Follower entity(window, &followerTexture);
+
+        npcList.push_back(entity);
     }
 
     //Detect collision between follower object and player
@@ -49,7 +57,7 @@ public:
         {
             if (npcList[i].getGlobalBounds().intersects(player.getGlobalBounds()))
             {
-                npcList[i].setCollided(true);
+                npcList[i].setPlayerCollided(true);
             }
         }
     }
@@ -80,24 +88,26 @@ public:
         detectPlayerCollision();
 
         float dt = clock.restart().asSeconds();
+        time_interval += dt;
 
-        if (followerCount < 5)
-        {
-            Follower entity(window);
-
-            npcList.push_back(entity);
-            followerCount++;
-        }
-
+        //Tell follower objects to follower player once collided
         for (int i = 0; i < npcList.size(); i++)
         {
-            if (npcList[i].hasCollided())
+            if (npcList[i].hasPlayerCollided())
             {
                 npcList[i].followPlayer(player.getPosition(), dt);
-                followerCount--;
             }
         }
 
+        //Spawn new follower object after 0.9 secs
+        if (time_interval >= 0.9)
+        {
+            Follower newEntity(window, &followerTexture);
+
+            npcList.push_back(newEntity);
+           
+            time_interval = 0;
+        }
     }
 
     //Handles events and sends them to appropriate function
@@ -124,8 +134,6 @@ public:
             Event event{};
             eventHandler(event);
             render();
-
-        
         }
     }
 
