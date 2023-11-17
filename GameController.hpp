@@ -14,19 +14,28 @@ class GameController
 {
 private:
     RenderWindow window;
+    
     Player player;
+
     Texture backgroundTexture;
     Texture followerTexture;
     Sprite background;
     Music music;
+
     vector<Follower> npcList;
     Clock clock;
-    float time_interval = 0;
+
+    View view1;
+    Vector2u size; //currently a testing variable. used to get background texture size. will be changed/removed when (if) map is changed to tilemap
+    
+    float time_interval = 0; //used to get time between npc spawns
 
 public:
     GameController()
     {
         //Default constructor
+
+        //Getting sprites and needed files
         if (!backgroundTexture.loadFromFile("grass-bg.jpg"))
             cout << "Error loading background." << endl;
 
@@ -38,14 +47,17 @@ public:
 
         music.play();
 
-        Vector2u size = backgroundTexture.getSize(); //Should change this to make background size depend on window size
-
         background.setTexture(backgroundTexture);
 
-        window.create(VideoMode(size.x, size.y), "GDPROG3 MCO1 PROTOTYPE");
+        window.create(VideoMode(1280, 960), "GDPROG3 MCO");
         //window.setFramerateLimit(30);     //used for testing framerate independent gameplay
 
-        Follower entity(window, &followerTexture);
+        view1.setSize(1280, 960);
+
+        size = backgroundTexture.getSize();
+
+        //Spawn single follower when game boots up
+        Follower entity(size, &followerTexture);
 
         npcList.push_back(entity);
     }
@@ -62,21 +74,24 @@ public:
         }
     }
 
-    //Draws all elements
+    //Draws all elements and sets window
     void render()
     {
         window.clear();
+        window.setView(view1);
         window.draw(background);
 
         logicUpdate();
-        
+
+        view1.setCenter(player.getPosition());
+
         for (int i = 0; i < npcList.size(); i++)
         {
             npcList[i].drawTo(window);
         }
 
         player.drawTo(window);
-        
+
         window.display();
     }
 
@@ -102,7 +117,7 @@ public:
         //Spawn new follower object after 0.9 secs
         if (time_interval >= 0.9)
         {
-            Follower newEntity(window, &followerTexture);
+            Follower newEntity(size, &followerTexture);
 
             npcList.push_back(newEntity);
            
@@ -134,6 +149,7 @@ public:
             Event event{};
             eventHandler(event);
             render();
+            
         }
     }
 

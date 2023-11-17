@@ -33,12 +33,12 @@ public:
 		rect.setPosition(pos);
 	}
 
-	Follower(RenderWindow &window, Texture* texture)
+	Follower(Vector2u size, Texture* texture)
 	{
 		random_device random;
 
-		pos.x = random() % window.getSize().x;
-		pos.y = random() % window.getSize().y;
+		pos.x = random() % size.x;
+		pos.y = random() % size.y;
 
 		rect.setTexture(*texture);
 		rect.setPosition(pos);

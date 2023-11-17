@@ -42,7 +42,7 @@ public:
         //pos.y = 200;
 
         sprite.setTexture(texture);
-        sprite.setPosition(200, 200);
+        sprite.setPosition(1000, 1000);
     }
 
     Player(string name)
@@ -55,7 +55,7 @@ public:
         //pos.y = 200;
 
         sprite.setTexture(texture);
-        sprite.setPosition(200, 200);
+        sprite.setPosition(1000, 1000);
     }
 
     //Process keyboard input
