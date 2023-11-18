@@ -25,7 +25,6 @@ private:
 public:
 	Follower()
 	{
-		
 		pos.x = 300;
 		pos.y = 300;
 
@@ -94,6 +93,11 @@ public:
 	void drawTo(RenderWindow& window)
 	{
 		window.draw(rect);
+	}
+
+	void setPosition(Vector2u pos)
+	{
+		rect.setPosition(pos.x, pos.y);
 	}
 
 };

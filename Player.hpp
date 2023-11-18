@@ -125,4 +125,9 @@ public:
     {
         return speed;
     }
+
+    void setPosition(Vector2u pos)
+    {
+        sprite.setPosition(pos.x, pos.y);
+    }
 };

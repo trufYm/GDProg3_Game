@@ -1,5 +1,6 @@
 #include <Follower.hpp>
 #include <Player.hpp>
+#include <Map.hpp>
 #include <GameController.hpp>
 
 

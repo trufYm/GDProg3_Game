@@ -17,12 +17,14 @@ private:
     
     Player player;
 
+    Map map;
+
     Texture backgroundTexture;
     Texture followerTexture;
     Sprite background;
     Music music;
 
-    vector<Follower> npcList;
+    vector<Follower *> npcList;
     Clock clock;
 
     View view1;
@@ -56,10 +58,7 @@ public:
 
         size = backgroundTexture.getSize();
 
-        //Spawn single follower when game boots up
-        Follower entity(size, &followerTexture);
-
-        npcList.push_back(entity);
+        map.setMapSize(size);
     }
 
     //Detect collision between follower object and player
@@ -67,9 +66,9 @@ public:
     {
         for (int i = 0; i < npcList.size(); i++)
         {
-            if (npcList[i].getGlobalBounds().intersects(player.getGlobalBounds()))
+            if ((*npcList[i]).getGlobalBounds().intersects(player.getGlobalBounds()))
             {
-                npcList[i].setPlayerCollided(true);
+                (*npcList[i]).setPlayerCollided(true);
             }
         }
     }
@@ -87,7 +86,7 @@ public:
 
         for (int i = 0; i < npcList.size(); i++)
         {
-            npcList[i].drawTo(window);
+            (*npcList[i]).drawTo(window);
         }
 
         player.drawTo(window);
@@ -108,21 +107,25 @@ public:
         //Tell follower objects to follower player once collided
         for (int i = 0; i < npcList.size(); i++)
         {
-            if (npcList[i].hasPlayerCollided())
+            if ((*npcList[i]).hasPlayerCollided())
             {
-                npcList[i].followPlayer(player.getPosition(), dt);
+                (*npcList[i]).followPlayer(player.getPosition(), dt);
             }
         }
 
         //Spawn new follower object after 0.9 secs
         if (time_interval >= 0.9)
         {
-            Follower newEntity(size, &followerTexture);
+            //Follower newEntity(size, &followerTexture);
+
+            Follower* newEntity = new Follower(size, &followerTexture);
 
             npcList.push_back(newEntity);
            
             time_interval = 0;
         }
+
+        map.detectPlayer(&player, npcList);
     }
 
     //Handles events and sends them to appropriate function

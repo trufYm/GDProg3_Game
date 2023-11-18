@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Follower.hpp" />
