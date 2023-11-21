@@ -25,7 +25,7 @@ if (playerBounds.top < npcBounds.top
     && playerBounds.left + playerBounds.width > npcBounds.left)
 {
     npc.setCollided(true);
-    //player.setPosition(playerBounds.left, npcBounds.top - playerBounds.height);
+    player.setPosition(playerBounds.left, npcBounds.top - playerBounds.height);
 }
 
 //Top Collision
@@ -35,7 +35,7 @@ else if (playerBounds.top > npcBounds.top
     && playerBounds.left + playerBounds.width > npcBounds.left)
 {
     npc.setCollided(true);
-    //player.setPosition(playerBounds.left, npcBounds.top + npcBounds.height);
+    player.setPosition(playerBounds.left, npcBounds.top + npcBounds.height);
 }
 
 //Right Collision
@@ -45,7 +45,7 @@ else if (playerBounds.left < npcBounds.left
     && playerBounds.top + playerBounds.height > npcBounds.top)
 {
     npc.setCollided(true);
-    //player.setPosition(npcBounds.left - playerBounds.width, playerBounds.top);
+    player.setPosition(npcBounds.left - playerBounds.width, playerBounds.top);
 }
 
 //Left Collision
@@ -55,7 +55,7 @@ else if (playerBounds.left > npcBounds.left
     && playerBounds.top + playerBounds.height > npcBounds.top)
 {
     npc.setCollided(true);
-    //player.setPosition(npcBounds.left + npcBounds.width, playerBounds.top);
+    player.setPosition(npcBounds.left + npcBounds.width, playerBounds.top);
 }
 
 

@@ -68,6 +68,7 @@ public:
         {
             if ((*npcList[i]).getGlobalBounds().intersects(player.getGlobalBounds()))
             {
+                (*npcList[i]).setBuffer(60.0 + (i * 20));
                 (*npcList[i]).setPlayerCollided(true);
             }
         }

@@ -16,24 +16,32 @@ class Map
 {
 private:
 	Vector2u mapSize;
-	Vector2u windowSize;
+	Vector2f mapBorder;
 
 public:
 	Map()
 	{
 		//default
-		windowSize = { 1280, 960 };
+		mapBorder = { 650, 960 };
 	}
 
-	void detectPlayer(Player* player, vector<Follower *> npcList)
+	void detectPlayer(Player* player, vector<Follower *> &npcList)
 	{
-		if (player->getPosition().x > mapSize.x - windowSize.x)
+		Vector2f playerOldPos = player->getPosition();
+
+		if (playerOldPos.x > mapSize.x - mapBorder.x)
 		{
-			player->setPosition(windowSize);
+			Vector2f playerNewPos = { 800, playerOldPos.y };
+
+			player->setPosition(playerNewPos);
 
 			for (int i = 0; i < (npcList).size(); i++)
 			{
-				(*npcList[i]).setPosition(windowSize);
+				if ((*npcList[i]).hasPlayerCollided())
+				{
+					(*npcList[i]).setPosition(playerNewPos);
+				}
+				
 			}
 		}
 	}

@@ -19,8 +19,11 @@ private:
 	Texture texture;
 	Vector2f pos;
 	Player player;
+
 	bool playerCollided = false;
 	bool npcCollided = false;
+
+	float buffer = 60.0f;
 
 public:
 	Follower()
@@ -52,11 +55,10 @@ public:
 		Vector2f movement(0,0);
 
 		float mult = 60.f;
-		float buffer = 60.0f;
-		
+
 		if (playerCollided)
 		{
-			float step = (player.getSpeed() * 0.80f) * dt * mult;
+			float step = (player.getSpeed() * 0.95f) * dt * mult;
 			
 			if (playerPos.x > currentPos.x + buffer)
 				movement.x += step;
@@ -85,19 +87,29 @@ public:
 		playerCollided = state;
 	}
 
-	bool hasPlayerCollided()
+	bool hasPlayerCollided() const
 	{
 		return playerCollided;
 	}
 
-	void drawTo(RenderWindow& window)
+	void drawTo(RenderWindow& window) const
 	{
 		window.draw(rect);
 	}
 
-	void setPosition(Vector2u pos)
+	void setPosition(Vector2f pos)
 	{
 		rect.setPosition(pos.x, pos.y);
+	}
+
+	void setPosition(float x, float y)
+	{
+		rect.setPosition(x, y);
+	}
+
+	void setBuffer(float num)
+	{
+		buffer = num;
 	}
 
 };
