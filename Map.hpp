@@ -28,8 +28,6 @@ public:
 	{
 		player->setPosition(playerNewPos);
 
-		cout << "Player new pos: " << playerNewPos.x << " " << playerNewPos.y << endl;
-
 		for (int i = 0; i < (npcList).size(); i++)
 		{
 			if ((*npcList[i]).hasPlayerCollided())
