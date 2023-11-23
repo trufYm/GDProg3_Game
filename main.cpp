@@ -1,21 +1,8 @@
-#include <iostream>
-#include <random>
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio/Music.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Window.hpp>
-
-using namespace std;
-using namespace sf;
-
 #include <ResourceManager.hpp>
 #include <Player.hpp>
 #include <Follower.hpp>
 #include <Map.hpp>
 #include <GameController.hpp>
-
 
 int main()
 {

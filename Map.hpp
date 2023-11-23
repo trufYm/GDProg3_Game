@@ -1,6 +1,19 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/Window.hpp>
+#include <ResourceManager.hpp>
+#include <Player.hpp>
+#include <Follower.hpp>
+
+using namespace std;
+using namespace sf;
+
 class Map : protected ResourceManager
 {
 private:
@@ -8,62 +21,13 @@ private:
 	Vector2f mapBorder;
 
 public:
-	Map()
-	{
+	Map();
 
-	};
+	void movePlayer(Player* player, vector<Follower*>& npcList, Vector2f playerNewPos);
 
-	void movePlayer(Player* player, vector<Follower*>& npcList, Vector2f playerNewPos)
-	{
-		player->setPosition(playerNewPos);
+	void detectPlayer(Player* player, vector<Follower*>& npcList);
 
-		for (int i = 0; i < (npcList).size(); i++)
-		{
-			if ((*npcList[i]).hasPlayerCollided())
-			{
-				(*npcList[i]).setPosition(playerNewPos);
-			}
-
-		}
-	}
-
-	void detectPlayer(Player* player, vector<Follower *> &npcList)
-	{
-		Vector2f playerOldPos = player->getPosition();
-		Vector2f playerNewPos;
-
-		if (playerOldPos.x > mapBorder.x)
-		{
-			playerNewPos = { 700, playerOldPos.y };
-			movePlayer(player, npcList, playerNewPos);
-		}
-
-		if (playerOldPos.x < 700)
-		{
-			playerNewPos = { mapBorder.x, playerOldPos.y };
-			movePlayer(player, npcList, playerNewPos);
-		}
-
-		if (playerOldPos.y > mapBorder.y)
-		{
-			playerNewPos = { playerOldPos.x, 500};
-			movePlayer(player, npcList, playerNewPos);
-		}
-
-		if (playerOldPos.y < 500)
-		{
-			playerNewPos = { playerOldPos.x, mapBorder.y };
-			movePlayer(player, npcList, playerNewPos);
-		}
-	}
-
-	void setMapSize(Vector2f size)
-	{
-		mapSize = size;
-		mapBorder = { mapSize.x - 700, mapSize.y - 500};
-		cout << "Map Size: " << mapSize.x << " " << mapSize.y << endl;
-		cout << "Map border: " << mapBorder.x << " " << mapBorder.y << endl;
-	}
+	void setMapSize(Vector2f size);
 
 };
 

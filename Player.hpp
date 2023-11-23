@@ -1,6 +1,17 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/Window.hpp>
+#include <ResourceManager.hpp>
+
+using namespace std;
+using namespace sf;
+
 class Player : protected ResourceManager
 {
 private:
@@ -8,119 +19,37 @@ private:
     Texture texture;
     Sprite sprite;
     Clock clock;
-    //Vector2f pos;
 
-    //will be adjusted with buffs, will need setSpeed function later
-    float speed = 10;
+    float speed;
 
-    //for movement
-    bool up = false;
-    bool down = false;
-    bool left = false;
-    bool right = false;
+    bool up;
+    bool down;
+    bool left;
+    bool right;
 
-    //for framerate independent movement
-    float dt = 0;
-    float mult = 60.f;
+    float dt;
+    float mult;
 
 public:
-    Player() //Default constructor
-    {
-        if (!texture.loadFromFile("donpersimmon.png"))
-            cout << "Error loading player texture." << endl;
+    Player();
 
-        //pos.x = 200;
-        //pos.y = 200;
+    Player(string name);
 
-        sprite.setTexture(texture);
-        sprite.setPosition(1000, 1000);
-    }
+    void processEvents(Keyboard::Key key, bool isPressed);
 
-    Player(string name)
-    {
-        playerName = name;
-        if (!texture.loadFromFile("donpersimmon.png"))
-            cout << "Error loading player texture." << endl;
+    void update();
 
-        //pos.x = 200;
-        //pos.y = 200;
+    void drawTo(RenderWindow& window);
 
-        sprite.setTexture(texture);
-        sprite.setPosition(1000, 1000);
-    }
+    Sprite getSprite();
 
-    //Process keyboard input
-    void processEvents(Keyboard::Key key, bool isPressed)
-    {
-        if (isPressed)
-        {
-            if (key == Keyboard::W)
-                up = true;
-            if (key == Keyboard::A)
-                left = true;
-            if (key == Keyboard::S)
-                down = true;
-            if (key == Keyboard::D)
-                right = true;
-        }
-        else
-        {
-            up = false;
-            down = false;
-            left = false;
-            right = false;
-        }
-    }
+    Vector2f getPosition();
 
-    /*Main movement function. Takes current speed value and multiplies by delta time
-    and a multiplier (depending on desired FPS) to be independent from framerate*/
-    void update()
-    {
-        Vector2f movement;
-        dt = clock.restart().asSeconds();
-        if (up)
-            movement.y -= speed * dt * mult;
-        if (down)
-            movement.y += speed * dt * mult;
-        if (left)
-            movement.x -= speed * dt * mult;
-        if (right)
-            movement.x += speed * dt * mult;
+    FloatRect getGlobalBounds();
 
-        sprite.move(movement);
-    }
+    float getSpeed();
 
-    //Helper functions
-
-    void drawTo(RenderWindow& window)
-    {
-        window.draw(sprite);
-    }
-
-    Sprite getSprite()
-    {
-        return sprite;
-    }
-
-    Vector2f getPosition()
-    {
-        return sprite.getPosition();
-    }
-
-    FloatRect getGlobalBounds()
-    {
-        return sprite.getGlobalBounds();
-    }
-
-    float getSpeed()
-    {
-        return speed;
-    }
-
-    void setPosition(Vector2f pos)
-    {
-        sprite.setPosition(pos.x, pos.y);
-    }
+    void setPosition(Vector2f pos);
 };
 
 #endif // !PLAYER_H
