@@ -15,40 +15,67 @@ using namespace sf;
 class Map
 {
 private:
-	Vector2u mapSize;
+	Vector2f mapSize;
 	Vector2f mapBorder;
 
 public:
 	Map()
 	{
-		//default
-		mapBorder = { 650, 960 };
+
+	};
+
+	void movePlayer(Player* player, vector<Follower*>& npcList, Vector2f playerNewPos)
+	{
+		player->setPosition(playerNewPos);
+
+		cout << "Player new pos: " << playerNewPos.x << " " << playerNewPos.y << endl;
+
+		for (int i = 0; i < (npcList).size(); i++)
+		{
+			if ((*npcList[i]).hasPlayerCollided())
+			{
+				(*npcList[i]).setPosition(playerNewPos);
+			}
+
+		}
 	}
 
 	void detectPlayer(Player* player, vector<Follower *> &npcList)
 	{
 		Vector2f playerOldPos = player->getPosition();
+		Vector2f playerNewPos;
 
-		if (playerOldPos.x > mapSize.x - mapBorder.x)
+		if (playerOldPos.x > mapBorder.x)
 		{
-			Vector2f playerNewPos = { 800, playerOldPos.y };
+			playerNewPos = { 700, playerOldPos.y };
+			movePlayer(player, npcList, playerNewPos);
+		}
 
-			player->setPosition(playerNewPos);
+		if (playerOldPos.x < 700)
+		{
+			playerNewPos = { mapBorder.x, playerOldPos.y };
+			movePlayer(player, npcList, playerNewPos);
+		}
 
-			for (int i = 0; i < (npcList).size(); i++)
-			{
-				if ((*npcList[i]).hasPlayerCollided())
-				{
-					(*npcList[i]).setPosition(playerNewPos);
-				}
-				
-			}
+		if (playerOldPos.y > mapBorder.y)
+		{
+			playerNewPos = { playerOldPos.x, 500};
+			movePlayer(player, npcList, playerNewPos);
+		}
+
+		if (playerOldPos.y < 500)
+		{
+			playerNewPos = { playerOldPos.x, mapBorder.y };
+			movePlayer(player, npcList, playerNewPos);
 		}
 	}
 
-	void setMapSize(Vector2u size)
+	void setMapSize(Vector2f size)
 	{
 		mapSize = size;
+		mapBorder = { mapSize.x - 700, mapSize.y - 500};
+		cout << "Map Size: " << mapSize.x << " " << mapSize.y << endl;
+		cout << "Map border: " << mapBorder.x << " " << mapBorder.y << endl;
 	}
 
 };

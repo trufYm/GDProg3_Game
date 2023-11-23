@@ -35,12 +35,14 @@ public:
 		rect.setPosition(pos);
 	}
 
-	Follower(Vector2u size, Texture* texture)
+	Follower(Vector2f size, Texture* texture)
 	{
 		random_device random;
 
-		pos.x = random() % size.x;
-		pos.y = random() % size.y;
+		Vector2u mapSize = Vector2u(size);
+
+		pos.x = random() % mapSize.x;
+		pos.y = random() % mapSize.y;
 
 		rect.setTexture(*texture);
 		rect.setPosition(pos);

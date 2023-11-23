@@ -28,15 +28,13 @@ private:
     Clock clock;
 
     View view1;
-    Vector2u size; //currently a testing variable. used to get background texture size. will be changed/removed when (if) map is changed to tilemap
+    Vector2f mapSize;
     
     float time_interval = 0; //used to get time between npc spawns
 
 public:
     GameController()
     {
-        //Default constructor
-
         //Getting sprites and needed files
         if (!backgroundTexture.loadFromFile("grass-bg.jpg"))
             cout << "Error loading background." << endl;
@@ -56,9 +54,9 @@ public:
 
         view1.setSize(1280, 960);
 
-        size = backgroundTexture.getSize();
+        mapSize = Vector2f(backgroundTexture.getSize());
 
-        map.setMapSize(size);
+        map.setMapSize(mapSize);
     }
 
     //Detect collision between follower object and player
@@ -68,7 +66,7 @@ public:
         {
             if ((*npcList[i]).getGlobalBounds().intersects(player.getGlobalBounds()))
             {
-                (*npcList[i]).setBuffer(60.0 + (i * 20));
+                (*npcList[i]).setBuffer(60.0f + (i * 20));
                 (*npcList[i]).setPlayerCollided(true);
             }
         }
@@ -119,7 +117,7 @@ public:
         {
             //Follower newEntity(size, &followerTexture);
 
-            Follower* newEntity = new Follower(size, &followerTexture);
+            Follower* newEntity = new Follower(mapSize, &followerTexture);
 
             npcList.push_back(newEntity);
            
