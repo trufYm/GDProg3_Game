@@ -1,16 +1,7 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio/Music.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Window.hpp>
-
-using namespace std;
-using namespace sf;
-
-class Player
+class Player : protected ResourceManager
 {
 private:
     string playerName;
@@ -131,3 +122,5 @@ public:
         sprite.setPosition(pos.x, pos.y);
     }
 };
+
+#endif // !PLAYER_H

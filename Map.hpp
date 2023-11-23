@@ -1,18 +1,7 @@
-#pragma once
+#ifndef MAP_H
+#define MAP_H
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio/Music.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Window.hpp>
-#include <Player.hpp>
-#include <Follower.hpp>
-
-using namespace std;
-using namespace sf;
-
-class Map
+class Map : protected ResourceManager
 {
 private:
 	Vector2f mapSize;
@@ -77,3 +66,5 @@ public:
 	}
 
 };
+
+#endif
