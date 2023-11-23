@@ -16,10 +16,12 @@ private:
     RenderWindow window;
     Player player;
     Texture backgroundTexture;
+    Texture followerTexture;
     Sprite background;
     Music music;
-    Follower npc;
-    //Clock clock;  might be needed in future for real-time updating
+    vector<Follower> npcList;
+    Clock clock;
+    float time_interval = 0;
 
 public:
     GameController()
@@ -31,6 +33,9 @@ public:
         if (!music.openFromFile("holoBossaNova.wav"))
             cout << "Error loading music file." << endl;
 
+        if (!followerTexture.loadFromFile("akame(2).png"))
+            cout << "Error loading follower texture" << endl;
+
         music.play();
 
         Vector2u size = backgroundTexture.getSize(); //Should change this to make background size depend on window size
@@ -38,48 +43,72 @@ public:
         background.setTexture(backgroundTexture);
 
         window.create(VideoMode(size.x, size.y), "GDPROG3 MCO1 PROTOTYPE");
-        //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
+        //window.setFramerateLimit(30);     //used for testing framerate independent gameplay
+
+        Follower entity(window, &followerTexture);
+
+        npcList.push_back(entity);
     }
 
     //Detect collision between follower object and player
-    void detectCollision()
+    void detectPlayerCollision()
     {
-        if (npc.getGlobalBounds().intersects(player.getGlobalBounds()))
+        for (int i = 0; i < npcList.size(); i++)
         {
-            npc.setCollided(true);
+            if (npcList[i].getGlobalBounds().intersects(player.getGlobalBounds()))
+            {
+                npcList[i].setPlayerCollided(true);
+            }
         }
     }
 
-    //Does everything as of the moment. Draws all elements and updates current gamestate.
+    //Draws all elements
     void render()
     {
         window.clear();
         window.draw(background);
-        
-        player.update();
 
-        detectCollision();
-       
-        if (npc.hasCollided())
-        {
-            npc.followPlayer(player.getPosition());
-        }
+        logicUpdate();
         
-        npc.drawTo(window);
+        for (int i = 0; i < npcList.size(); i++)
+        {
+            npcList[i].drawTo(window);
+        }
+
         player.drawTo(window);
         
-
         window.display();
     }
 
-    /*void logicUpdate()
+    //Updates current gamestate
+    void logicUpdate()
     {
-        
-        Might be needed in the future???
-        Idk a logicUpdate function sounds like a good thing to have to
-        separate draw and update/logic methods
-        
-    }*/
+        player.update();
+
+        detectPlayerCollision();
+
+        float dt = clock.restart().asSeconds();
+        time_interval += dt;
+
+        //Tell follower objects to follower player once collided
+        for (int i = 0; i < npcList.size(); i++)
+        {
+            if (npcList[i].hasPlayerCollided())
+            {
+                npcList[i].followPlayer(player.getPosition(), dt);
+            }
+        }
+
+        //Spawn new follower object after 0.9 secs
+        if (time_interval >= 0.9)
+        {
+            Follower newEntity(window, &followerTexture);
+
+            npcList.push_back(newEntity);
+           
+            time_interval = 0;
+        }
+    }
 
     //Handles events and sends them to appropriate function
     void eventHandler(Event event)
@@ -105,7 +134,6 @@ public:
             Event event{};
             eventHandler(event);
             render();
-            //logicUpdate();
         }
     }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <random>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio/Music.hpp>
 #include <SFML/System.hpp>
@@ -17,41 +18,46 @@ private:
 	Sprite rect;
 	Texture texture;
 	Vector2f pos;
-	Clock clock;
 	Player player;
-	bool collided = false;
-	float dt = 0;
+	bool playerCollided = false;
+	bool npcCollided = false;
 
 public:
 	Follower()
 	{
-		if (!texture.loadFromFile("akame(2).png"))
-			cout << "Bad" << endl;
 		
-		//NOTE: Need to change initial position to rand once multiple follower instances are implemented
-		pos.x = 500;
-		pos.y = 500;
+		pos.x = 300;
+		pos.y = 300;
 
-		dt = clock.restart().asSeconds();
-		
 		rect.setTexture(texture);
+		rect.setPosition(pos);
+	}
+
+	Follower(RenderWindow &window, Texture* texture)
+	{
+		random_device random;
+
+		pos.x = random() % window.getSize().x;
+		pos.y = random() % window.getSize().y;
+
+		rect.setTexture(*texture);
 		rect.setPosition(pos);
 	}
 
 	/*Take player's current position and move towards it.
 	Uses same frame independent movement as player.
 	Buffer value is to separate follower from player sprite*/
-	void followPlayer(Vector2f playerPos)
+	void followPlayer(Vector2f playerPos, float dt)
 	{
 		Vector2f currentPos = rect.getPosition();
 		Vector2f movement(0,0);
 
 		float mult = 60.f;
 		float buffer = 60.0f;
-
-		if (collided)
+		
+		if (playerCollided)
 		{
-			float step = (player.getSpeed() * 0.60f) * dt * mult;
+			float step = (player.getSpeed() * 0.80f) * dt * mult;
 			
 			if (playerPos.x > currentPos.x + buffer)
 				movement.x += step;
@@ -75,14 +81,14 @@ public:
 		return rect.getGlobalBounds();
 	}
 
-	void setCollided(bool state)
+	void setPlayerCollided(bool state)
 	{
-		collided = state;
+		playerCollided = state;
 	}
 
-	bool hasCollided()
+	bool hasPlayerCollided()
 	{
-		return collided;
+		return playerCollided;
 	}
 
 	void drawTo(RenderWindow& window)
