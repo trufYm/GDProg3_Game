@@ -35,10 +35,35 @@ void GameController::detectPlayerCollision()
     {
         if ((*npcList[i]).getGlobalBounds().intersects(player.getGlobalBounds()))
         {
-            (*npcList[i]).setBuffer(60.0f + (i * 20));
             (*npcList[i]).setPlayerCollided(true);
+
+            Follower* newFollower = npcList[i];
+
+            followerList.push_back(newFollower);
+
+            npcList.erase(npcList.begin() + i);
         }
+            
     }
+}
+
+//Check if player has won
+void GameController::npcCounter() const
+{
+    if (followerList.size() >= 11 && followerList.size() < 20)
+        cout << "Entered ancient era!" << endl;
+
+    else if (followerList.size() >= 21 && followerList.size() < 30)
+        cout << "Entered medieval era!" << endl;
+
+    else if (followerList.size() >= 31 && followerList.size() < 40)
+        cout << "Entered pre-modern era!" << endl;
+
+    else if (followerList.size() >= 41 && followerList.size() < 50)
+        cout << "Entered modern era!" << endl;
+
+    else if (followerList.size() == 50)
+        cout << "You've won!" << endl;
 }
 
 //Draws all elements and sets window
@@ -57,6 +82,11 @@ void GameController::render()
         (*npcList[i]).drawTo(window);
     }
 
+    for (int i = 0; i < followerList.size(); i++)
+    {
+        (*followerList[i]).drawTo(window);
+    }
+
     player.drawTo(window);
 
     window.display();
@@ -72,20 +102,21 @@ void GameController::logicUpdate()
     float dt = clock.restart().asSeconds();
     time_interval += dt;
 
-    //Tell follower objects to follower player once collided
-    for (int i = 0; i < npcList.size(); i++)
+    //Tell follower objects to follow player once collided
+    for (int i = 0; i < followerList.size(); i++)
     {
-        if ((*npcList[i]).hasPlayerCollided())
+        if ((*followerList[i]).hasPlayerCollided())
         {
-            (*npcList[i]).followPlayer(player.getPosition(), dt);
-        }
+            (*followerList[i]).setBuffer(60.0f + (i * 20));
+            (*followerList[i]).followPlayer(player.getPosition(), dt);
+        }   
     }
+
+    npcCounter();
 
     //Spawn new follower object after 0.9 secs
     if (time_interval >= 0.9)
     {
-        //Follower newEntity(size, &followerTexture);
-
         Follower* newEntity = new Follower(mapSize, &followerTexture);
 
         npcList.push_back(newEntity);
@@ -93,7 +124,7 @@ void GameController::logicUpdate()
         time_interval = 0;
     }
 
-    map.detectPlayer(&player, npcList);
+    map.detectPlayer(&player, followerList);
 }
 
 //Handles events and sends them to appropriate function
@@ -120,6 +151,5 @@ void GameController::run()
         Event event{};
         eventHandler(event);
         render();
-
     }
 }

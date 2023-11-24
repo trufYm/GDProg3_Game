@@ -14,7 +14,7 @@
 using namespace std;
 using namespace sf;
 
-class Map : protected ResourceManager
+class Map //: protected ResourceManager
 {
 private:
 	Vector2f mapSize;

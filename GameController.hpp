@@ -33,6 +33,7 @@ private:
     Music music;
 
     vector<Follower *> npcList;
+    vector<Follower*> followerList;
     Clock clock;
 
     View view1;
@@ -44,6 +45,8 @@ public:
     GameController();
 
     void detectPlayerCollision();
+
+    void npcCounter() const;
 
     void render();
 

@@ -15,7 +15,7 @@
 using namespace std;
 using namespace sf;
 
-class Follower : protected ResourceManager
+class Follower //: protected ResourceManager
 {
 private:
 	Sprite rect;

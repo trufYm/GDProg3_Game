@@ -15,7 +15,6 @@ void Map::movePlayer(Player* player, vector<Follower*>& npcList, Vector2f player
 		{
 			(*npcList[i]).setPosition(playerNewPos);
 		}
-
 	}
 }
 
