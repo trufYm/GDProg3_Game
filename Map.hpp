@@ -14,11 +14,14 @@
 using namespace std;
 using namespace sf;
 
-class Map //: protected ResourceManager
+class Map : protected ResourceManager
 {
 private:
 	Vector2f mapSize;
 	Vector2f mapBorder;
+
+	Texture bgTexture;
+	Sprite background;
 
 public:
 	Map();
@@ -27,8 +30,9 @@ public:
 
 	void detectPlayer(Player* player, vector<Follower*>& npcList);
 
-	void setMapSize(Vector2f size);
+	void drawTo(RenderWindow& window) const;
 
+	Vector2f getMapSize() const;
 };
 
 #endif

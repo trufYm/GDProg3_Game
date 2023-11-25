@@ -21,6 +21,14 @@ protected:
 
 public:
 	ResourceManager();
+
+	Texture loadPlayerTexture();
+
+	Texture loadFollowerTexture();
+
+	Texture loadBackgroundTexture();
+
+	//Music loadMusic();
 };
 
 #endif

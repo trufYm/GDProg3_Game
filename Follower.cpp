@@ -14,7 +14,7 @@ Follower::Follower()
 	buffer = 60.0f;
 }
 
-Follower::Follower(Vector2f size, Texture* texture)
+Follower::Follower(Vector2f size)
 {
 	random_device random;
 
@@ -23,7 +23,9 @@ Follower::Follower(Vector2f size, Texture* texture)
 	pos.x = random() % mapSize.x;
 	pos.y = random() % mapSize.y;
 
-	rect.setTexture(*texture);
+	texture = loadFollowerTexture();
+
+	rect.setTexture(texture);
 	rect.setPosition(pos);
 
 	playerCollided = false;

@@ -15,7 +15,7 @@
 using namespace std;
 using namespace sf;
 
-class Follower //: protected ResourceManager
+class Follower : protected ResourceManager
 {
 private:
 	Sprite rect;
@@ -31,7 +31,7 @@ private:
 public:
 	Follower();
 
-	Follower(Vector2f size, Texture* texture);
+	Follower(Vector2f size);
 
 	void followPlayer(Vector2f playerPos, float dt);
 

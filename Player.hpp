@@ -12,7 +12,7 @@
 using namespace std;
 using namespace sf;
 
-class Player //: protected ResourceManager
+class Player : protected ResourceManager
 {
 private:
     string playerName;

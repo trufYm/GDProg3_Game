@@ -2,8 +2,7 @@
 
 Player::Player() //Default constructor
 {
-    if (!texture.loadFromFile("donpersimmon.png"))
-        cout << "Error loading player texture." << endl;
+    texture = loadPlayerTexture();
 
     sprite.setTexture(texture);
     sprite.setPosition(1000, 1000);

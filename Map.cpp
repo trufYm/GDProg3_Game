@@ -2,7 +2,14 @@
 
 Map::Map()
 {
+	bgTexture = loadBackgroundTexture();
 
+	background.setTexture(bgTexture);
+
+	mapSize = Vector2f(bgTexture.getSize());
+	mapBorder = { mapSize.x - 700, mapSize.y - 500 };
+	cout << "Map Size: " << mapSize.x << " " << mapSize.y << endl;
+	cout << "Map border: " << mapBorder.x << " " << mapBorder.y << endl;
 };
 
 void Map::movePlayer(Player* player, vector<Follower*>& npcList, Vector2f playerNewPos)
@@ -48,10 +55,12 @@ void Map::detectPlayer(Player* player, vector<Follower*>& npcList)
 	}
 }
 
-void Map::setMapSize(Vector2f size)
+void Map::drawTo(RenderWindow& window) const
 {
-	mapSize = size;
-	mapBorder = { mapSize.x - 700, mapSize.y - 500 };
-	cout << "Map Size: " << mapSize.x << " " << mapSize.y << endl;
-	cout << "Map border: " << mapBorder.x << " " << mapBorder.y << endl;
+	window.draw(background);
+}
+
+Vector2f Map::getMapSize() const
+{
+	return mapSize;
 }

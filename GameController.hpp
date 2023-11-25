@@ -24,12 +24,8 @@ private:
 
     Map map;
 
-    Texture backgroundTexture;
-    Texture followerTexture;
-
     ResourceManager resource;
 
-    Sprite background;
     Music music;
 
     vector<Follower *> npcList;
@@ -37,7 +33,6 @@ private:
     Clock clock;
 
     View view1;
-    Vector2f mapSize;
     
     float time_interval;
 

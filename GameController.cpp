@@ -3,27 +3,15 @@
 GameController::GameController()
 {
     //Getting sprites and needed files
-    if (!backgroundTexture.loadFromFile("grass-bg.jpg"))
-        cout << "Error loading background." << endl;
-
     if (!music.openFromFile("holoBossaNova.wav"))
         cout << "Error loading music file." << endl;
 
-    if (!followerTexture.loadFromFile("akame(2).png"))
-        cout << "Error loading follower texture" << endl;
-
     music.play();
-
-    background.setTexture(backgroundTexture);
 
     window.create(VideoMode(1280, 960), "GDPROG3 MCO");
     //window.setFramerateLimit(30);     //used for testing framerate independent gameplay
 
     view1.setSize(1280, 960);
-
-    mapSize = Vector2f(backgroundTexture.getSize());
-
-    map.setMapSize(mapSize);
 
     time_interval = 0;
 }
@@ -71,7 +59,8 @@ void GameController::render()
 {
     window.clear();
     window.setView(view1);
-    window.draw(background);
+    
+    map.drawTo(window);
 
     logicUpdate();
 
@@ -117,7 +106,7 @@ void GameController::logicUpdate()
     //Spawn new follower object after 0.9 secs
     if (time_interval >= 0.9)
     {
-        Follower* newEntity = new Follower(mapSize, &followerTexture);
+        Follower* newEntity = new Follower(map.getMapSize());
 
         npcList.push_back(newEntity);
 
