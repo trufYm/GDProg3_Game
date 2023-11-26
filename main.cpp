@@ -1,7 +1,3 @@
-#include <ResourceManager.hpp>
-#include <Player.hpp>
-#include <Follower.hpp>
-#include <Map.hpp>
 #include <GameController.hpp>
 
 int main()

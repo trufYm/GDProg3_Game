@@ -11,7 +11,6 @@
 #include <ResourceManager.hpp>
 #include <Player.hpp>
 
-
 using namespace std;
 using namespace sf;
 
@@ -24,7 +23,6 @@ private:
 	Player player;
 
 	bool playerCollided;
-	bool npcCollided;
 
 	float buffer;
 
@@ -44,8 +42,6 @@ public:
 	void drawTo(RenderWindow& window) const;
 
 	void setPosition(Vector2f pos);
-
-	void setPosition(float x, float y);
 
 	void setBuffer(float num);
 

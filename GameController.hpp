@@ -28,12 +28,12 @@ private:
 
     Music music;
 
-    vector<Follower *> npcList;
+    vector<Follower*> npcList;
     vector<Follower*> followerList;
     Clock clock;
 
     View view1;
-    
+
     float time_interval;
 
 public:

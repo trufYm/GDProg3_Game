@@ -27,27 +27,20 @@ private:
     bool left;
     bool right;
 
-    float dt;
-    float mult;
-
 public:
     Player();
-
-    Player(string name);
 
     void processEvents(Keyboard::Key key, bool isPressed);
 
     void update();
 
-    void drawTo(RenderWindow& window);
-
-    Sprite getSprite();
+    void drawTo(RenderWindow& window) const;
 
     Vector2f getPosition();
 
     FloatRect getGlobalBounds();
 
-    float getSpeed();
+    float getSpeed() const;
 
     void setPosition(Vector2f pos);
 };

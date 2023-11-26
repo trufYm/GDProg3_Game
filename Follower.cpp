@@ -9,7 +9,6 @@ Follower::Follower()
 	rect.setPosition(pos);
 
 	playerCollided = false;
-	npcCollided = false;
 
 	buffer = 60.0f;
 }
@@ -29,7 +28,6 @@ Follower::Follower(Vector2f size)
 	rect.setPosition(pos);
 
 	playerCollided = false;
-	npcCollided = false;
 
 	buffer = 60.0f;
 }
@@ -88,11 +86,6 @@ void Follower::drawTo(RenderWindow& window) const
 void Follower::setPosition(Vector2f pos)
 {
 	rect.setPosition(pos.x, pos.y);
-}
-
-void Follower::setPosition(float x, float y)
-{
-	rect.setPosition(x, y);
 }
 
 void Follower::setBuffer(float num)

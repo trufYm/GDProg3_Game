@@ -2,7 +2,7 @@
 
 GameController::GameController()
 {
-    //Getting sprites and needed files
+    //Getting sprites and needed files - move to resource manager
     if (!music.openFromFile("holoBossaNova.wav"))
         cout << "Error loading music file." << endl;
 
@@ -16,7 +16,8 @@ GameController::GameController()
     time_interval = 0;
 }
 
-//Detect collision between follower object and player
+/*Detect collision between npc (follower) object and player.
+If collided, copy npc instance to follower vector and delete the instance*/
 void GameController::detectPlayerCollision()
 {
     for (int i = 0; i < npcList.size(); i++)
@@ -25,9 +26,7 @@ void GameController::detectPlayerCollision()
         {
             (*npcList[i]).setPlayerCollided(true);
 
-            Follower* newFollower = npcList[i];
-
-            followerList.push_back(newFollower);
+            followerList.push_back(npcList[i]);
 
             npcList.erase(npcList.begin() + i);
         }
@@ -35,7 +34,7 @@ void GameController::detectPlayerCollision()
     }
 }
 
-//Check if player has won
+//Check which era player is on, will be used for sprite changes and win screen once implemented
 void GameController::npcCounter() const
 {
     if (followerList.size() >= 11 && followerList.size() < 20)
@@ -54,7 +53,7 @@ void GameController::npcCounter() const
         cout << "You've won!" << endl;
 }
 
-//Draws all elements and sets window
+//Draws all elements and sets window view
 void GameController::render()
 {
     window.clear();
@@ -84,10 +83,12 @@ void GameController::render()
 //Updates current gamestate
 void GameController::logicUpdate()
 {
+    //Update player's position based on movement
     player.update();
 
     detectPlayerCollision();
 
+    //Gets time in between frames
     float dt = clock.restart().asSeconds();
     time_interval += dt;
 
@@ -113,6 +114,7 @@ void GameController::logicUpdate()
         time_interval = 0;
     }
 
+    //Check if player has gone past map bounds
     map.detectPlayer(&player, followerList);
 }
 

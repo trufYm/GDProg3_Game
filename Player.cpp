@@ -13,29 +13,6 @@ Player::Player() //Default constructor
     down = false;
     left = false;
     right = false;
-
-    dt = 0;
-    mult = 60.f;
-}
-
-Player::Player(string name)
-{
-    playerName = name;
-    if (!texture.loadFromFile("donpersimmon.png"))
-        cout << "Error loading player texture." << endl;
-
-    sprite.setTexture(texture);
-    sprite.setPosition(1000, 1000);
-
-    speed = 10;
-
-    up = false;
-    down = false;
-    left = false;
-    right = false;
-
-    dt = 0;
-    mult = 60.f;
 }
 
 //Process keyboard input
@@ -66,6 +43,10 @@ and a multiplier (depending on desired FPS) to be independent from framerate*/
 void Player::update()
 {
     Vector2f movement;
+
+    float dt = 0;
+    float mult = 60.f;
+
     dt = clock.restart().asSeconds();
     if (up)
         movement.y -= speed * dt * mult;
@@ -81,14 +62,9 @@ void Player::update()
 
 //Helper functions
 
-void Player::drawTo(RenderWindow& window)
+void Player::drawTo(RenderWindow& window) const
 {
     window.draw(sprite);
-}
-
-Sprite Player::getSprite()
-{
-    return sprite;
 }
 
 Vector2f Player::getPosition()
@@ -101,7 +77,7 @@ FloatRect Player::getGlobalBounds()
     return sprite.getGlobalBounds();
 }
 
-float Player::getSpeed()
+float Player::getSpeed() const
 {
     return speed;
 }
