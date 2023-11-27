@@ -32,7 +32,7 @@ public:
 
 	void drawTo(RenderWindow& window) const;
 
-	Vector2f getMapSize() const;
+	Vector2f getMapBorder() const;
 };
 
 #endif

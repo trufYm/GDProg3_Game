@@ -26,8 +26,6 @@ private:
 
     ResourceManager resource;
 
-    Music music;
-
     vector<Follower*> npcList;
     vector<Follower*> followerList;
     Clock clock;
@@ -35,13 +33,15 @@ private:
     View view1;
 
     float time_interval;
+    
+    int currentEra;
 
 public:
     GameController();
 
     void detectPlayerCollision();
 
-    void npcCounter() const;
+    void npcCounter();
 
     void render();
 

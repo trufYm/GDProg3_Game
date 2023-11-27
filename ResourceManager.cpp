@@ -12,12 +12,43 @@ Texture ResourceManager::loadPlayerTexture()
 	return playerTex;
 }
 
-Texture ResourceManager::loadFollowerTexture()
+Texture ResourceManager::loadFollowerTexture(int currentEra)
 {
-	if (!followerTex.loadFromFile("akame(2).png"))
+	if (!followerTexCaveman.loadFromFile("resource_caveman.jpg"))
 		cout << "Error loading follower texture" << endl;
 
-	return followerTex;
+	if (!followerTexAncient.loadFromFile("resource_ancient.jpg"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexMedieval.loadFromFile("resource_medieval.jpg"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexPreModern.loadFromFile("resource_premodern.jpg"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexModern.loadFromFile("resource_modern.jpg"))
+		cout << "Error loading follower texture" << endl;
+
+	switch (currentEra)
+	{
+		case 1:
+			return followerTexCaveman;
+			break;
+		case 2:
+			return followerTexAncient;
+			break;
+		case 3:
+			return followerTexMedieval;
+			break;
+		case 4:
+			return followerTexPreModern;
+			break;
+		case 5:
+			return followerTexModern;
+			break;
+	}
+
+	return followerTexCaveman;
 }
 
 Texture ResourceManager::loadBackgroundTexture()
@@ -28,10 +59,10 @@ Texture ResourceManager::loadBackgroundTexture()
 	return backgroundTex;
 }
 
-/*Music ResourceManager::loadMusic()
+void ResourceManager::playMusic()
 {
 	if (!music.openFromFile("holoBossaNova.wav"))
 		cout << "Error loading music." << endl;
 
-	return music;
-}*/
+	music.play();
+}

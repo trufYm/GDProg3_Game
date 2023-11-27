@@ -15,7 +15,11 @@ class ResourceManager
 {
 protected:
 	Texture backgroundTex;
-	Texture followerTex;
+	Texture followerTexCaveman;
+	Texture followerTexAncient;
+	Texture followerTexMedieval;
+	Texture followerTexPreModern;
+	Texture followerTexModern;
 	Texture playerTex;
 	Music music;
 
@@ -24,11 +28,11 @@ public:
 
 	Texture loadPlayerTexture();
 
-	Texture loadFollowerTexture();
+	Texture loadFollowerTexture(int currentEra);
 
 	Texture loadBackgroundTexture();
 
-	//Music loadMusic();
+	void playMusic();
 };
 
 #endif

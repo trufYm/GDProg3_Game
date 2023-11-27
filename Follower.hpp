@@ -26,10 +26,12 @@ private:
 
 	float buffer;
 
+	int currentEra;
+
 public:
 	Follower();
 
-	Follower(Vector2f size);
+	Follower(Vector2f size, int era);
 
 	void followPlayer(Vector2f playerPos, float dt);
 
@@ -45,6 +47,7 @@ public:
 
 	void setBuffer(float num);
 
+	void changeCurrentEra(int era);
 };
 
 #endif

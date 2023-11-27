@@ -2,18 +2,16 @@
 
 GameController::GameController()
 {
-    //Getting sprites and needed files - move to resource manager
-    if (!music.openFromFile("holoBossaNova.wav"))
-        cout << "Error loading music file." << endl;
-
-    music.play();
-
     window.create(VideoMode(1280, 960), "GDPROG3 MCO");
     //window.setFramerateLimit(30);     //used for testing framerate independent gameplay
 
     view1.setSize(1280, 960);
 
     time_interval = 0;
+
+    resource.playMusic();
+
+    currentEra = 1;
 }
 
 /*Detect collision between npc (follower) object and player.
@@ -35,21 +33,34 @@ void GameController::detectPlayerCollision()
 }
 
 //Check which era player is on, will be used for sprite changes and win screen once implemented
-void GameController::npcCounter() const
+void GameController::npcCounter()
 {
     if (followerList.size() >= 11 && followerList.size() < 20)
-        cout << "Entered ancient era!" << endl;
-
+        currentEra = 2;
+        
     else if (followerList.size() >= 21 && followerList.size() < 30)
-        cout << "Entered medieval era!" << endl;
-
+        currentEra = 3;
+        
     else if (followerList.size() >= 31 && followerList.size() < 40)
-        cout << "Entered pre-modern era!" << endl;
+        currentEra = 4;
 
     else if (followerList.size() >= 41 && followerList.size() < 50)
-        cout << "Entered modern era!" << endl;
+        currentEra = 5;
 
-    else if (followerList.size() == 50)
+    //Probably (definitely) inefficient but :D
+    for (int i = 0; i < followerList.size(); i++)
+    {
+        (*followerList[i]).changeCurrentEra(currentEra);
+    }
+
+    //Will implement different sprite changes depending on if follower or npc
+
+    for (int i = 0; i < npcList.size(); i++)
+    {
+        (*npcList[i]).changeCurrentEra(currentEra);
+    }
+
+    if (followerList.size() == 50)
         cout << "You've won!" << endl;
 }
 
@@ -95,11 +106,8 @@ void GameController::logicUpdate()
     //Tell follower objects to follow player once collided
     for (int i = 0; i < followerList.size(); i++)
     {
-        if ((*followerList[i]).hasPlayerCollided())
-        {
-            (*followerList[i]).setBuffer(60.0f + (i * 20));
-            (*followerList[i]).followPlayer(player.getPosition(), dt);
-        }   
+        (*followerList[i]).setBuffer(60.0f + (i * 20));
+        (*followerList[i]).followPlayer(player.getPosition(), dt);
     }
 
     npcCounter();
@@ -107,7 +115,7 @@ void GameController::logicUpdate()
     //Spawn new follower object after 0.9 secs
     if (time_interval >= 0.9)
     {
-        Follower* newEntity = new Follower(map.getMapSize());
+        Follower* newEntity = new Follower(map.getMapBorder(), currentEra);
 
         npcList.push_back(newEntity);
 
@@ -144,3 +152,13 @@ void GameController::run()
         render();
     }
 }
+
+/*Idea for menus:
+Add new bool function playerHasWon, set to true in npcCounter.
+Then, have check in run function for hasWon. If true, open menu class that
+clears current window and draws new stuff. In theory should make current game
+loop stop and only draw menu loop
+
+Send menu class window reference
+
+Also maybe menu inherits from resource manager? for sprite textures.*/
