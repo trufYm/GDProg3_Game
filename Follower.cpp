@@ -1,20 +1,5 @@
 #include <Follower.hpp>
 
-Follower::Follower()
-{
-	pos.x = 300;
-	pos.y = 300;
-
-	currentEra = 1;
-
-	rect.setTexture(texture);
-	rect.setPosition(pos);
-
-	playerCollided = false;
-
-	buffer = 60.0f;
-}
-
 Follower::Follower(Vector2f size, int era)
 {
 	random_device random;
@@ -26,9 +11,10 @@ Follower::Follower(Vector2f size, int era)
 
 	currentEra = era;
 
-	texture = loadFollowerTexture(currentEra);
+	texture = loadResourceTexture(currentEra);
 
 	rect.setTexture(texture);
+	rect.setScale(1.5, 1.5);
 	rect.setPosition(pos);
 
 	playerCollided = false;
@@ -65,6 +51,8 @@ void Follower::followPlayer(Vector2f playerPos, float dt)
 	}
 }
 
+/*Change follower texture to new era texture.
+Texture is different depending on if object is resource or follower*/
 void Follower::changeCurrentEra(int era)
 {
 	//Don't change texture
@@ -73,23 +61,30 @@ void Follower::changeCurrentEra(int era)
 
 	currentEra = era;
 
-	//Will implement different sprite changes depending on if follower or npc
-	texture = loadFollowerTexture(currentEra);
+	if (playerCollided)
+		texture = loadFollowerTexture(currentEra);
+
+	else
+		texture = loadResourceTexture(currentEra);
 
 	rect.setTexture(texture);
 }
 
+//Change resource to follower
+void Follower::changeToFollower()
+{
+	playerCollided = true;
+
+	texture = loadFollowerTexture(currentEra);
+
+	rect.setTexture(texture);
+}
 
 //HELPER FUNCTIONS
 
 FloatRect Follower::getGlobalBounds()
 {
 	return rect.getGlobalBounds();
-}
-
-void Follower::setPlayerCollided(bool state)
-{
-	playerCollided = state;
 }
 
 bool Follower::hasPlayerCollided() const

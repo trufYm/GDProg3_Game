@@ -13,6 +13,7 @@ Map::Map()
 	cout << "Map border: " << mapBorder.x << " " << mapBorder.y << endl;
 };
 
+//Move player and followers to other side of map
 void Map::movePlayer(Player* player, vector<Follower*>& npcList, Vector2f playerNewPos)
 {
 	player->setPosition(playerNewPos);
@@ -26,6 +27,7 @@ void Map::movePlayer(Player* player, vector<Follower*>& npcList, Vector2f player
 	}
 }
 
+//Check if player has passed the map border
 void Map::detectPlayer(Player* player, vector<Follower*>& npcList)
 {
 	Vector2f playerOldPos = player->getPosition();
@@ -55,6 +57,8 @@ void Map::detectPlayer(Player* player, vector<Follower*>& npcList)
 		movePlayer(player, npcList, playerNewPos);
 	}
 }
+
+//HELPER FUNCTIONS
 
 void Map::drawTo(RenderWindow& window) const
 {

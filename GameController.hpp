@@ -41,15 +41,15 @@ public:
 
     void detectPlayerCollision();
 
-    void npcCounter();
+    void checkFollowerCount();
 
-    void render();
+    void drawElementsToWindow();
 
-    void logicUpdate();
+    void updateGameState();
 
     void eventHandler(Event event);
 
-    void run();
+    void gameLoop();
 
 };
 

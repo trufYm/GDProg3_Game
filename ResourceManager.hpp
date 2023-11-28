@@ -15,18 +15,33 @@ class ResourceManager
 {
 protected:
 	Texture backgroundTex;
+
 	Texture followerTexCaveman;
 	Texture followerTexAncient;
 	Texture followerTexMedieval;
 	Texture followerTexPreModern;
 	Texture followerTexModern;
-	Texture playerTex;
+
+	Texture resourceTexCaveman;
+	Texture resourceTexAncient;
+	Texture resourceTexMedieval;
+	Texture resourceTexPreModern;
+	Texture resourceTexModern;
+
+	Texture playerTexCaveman;
+	Texture playerTexAncient;
+	Texture playerTexMedieval;
+	Texture playerTexPreModern;
+	Texture playerTexModern;
+
 	Music music;
 
 public:
 	ResourceManager();
 
-	Texture loadPlayerTexture();
+	Texture loadPlayerTexture(int currentEra);
+
+	Texture loadResourceTexture(int currentEra);
 
 	Texture loadFollowerTexture(int currentEra);
 

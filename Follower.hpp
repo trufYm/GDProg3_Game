@@ -37,8 +37,6 @@ public:
 
 	FloatRect getGlobalBounds();
 
-	void setPlayerCollided(bool state);
-
 	bool hasPlayerCollided() const;
 
 	void drawTo(RenderWindow& window) const;
@@ -48,6 +46,8 @@ public:
 	void setBuffer(float num);
 
 	void changeCurrentEra(int era);
+
+	void changeToFollower();
 };
 
 #endif

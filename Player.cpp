@@ -2,9 +2,10 @@
 
 Player::Player() //Default constructor
 {
-    texture = loadPlayerTexture();
+    texture = loadPlayerTexture(1);
 
     sprite.setTexture(texture);
+    sprite.setScale(2, 2);
     sprite.setPosition(1000, 1000);
 
     speed = 10;
@@ -16,7 +17,7 @@ Player::Player() //Default constructor
 }
 
 //Process keyboard input
-void Player::processEvents(Keyboard::Key key, bool isPressed)
+void Player::processInput(Keyboard::Key key, bool isPressed)
 {
     if (isPressed)
     {
@@ -40,7 +41,7 @@ void Player::processEvents(Keyboard::Key key, bool isPressed)
 
 /*Main movement function. Takes current speed value and multiplies by delta time
 and a multiplier (depending on desired FPS) to be independent from framerate*/
-void Player::update()
+void Player::movePlayer()
 {
     Vector2f movement;
 
@@ -58,6 +59,13 @@ void Player::update()
         movement.x += speed * dt * mult;
 
     sprite.move(movement);
+}
+
+void Player::changeSpriteTexture(int currentEra)
+{
+    texture = loadPlayerTexture(currentEra);
+
+    sprite.setTexture(texture);
 }
 
 //Helper functions

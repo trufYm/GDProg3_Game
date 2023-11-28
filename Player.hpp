@@ -30,9 +30,9 @@ private:
 public:
     Player();
 
-    void processEvents(Keyboard::Key key, bool isPressed);
+    void processInput(Keyboard::Key key, bool isPressed);
 
-    void update();
+    void movePlayer();
 
     void drawTo(RenderWindow& window) const;
 
@@ -43,6 +43,8 @@ public:
     float getSpeed() const;
 
     void setPosition(Vector2f pos);
+
+    void changeSpriteTexture(int currentEra);
 };
 
 #endif // !PLAYER_H

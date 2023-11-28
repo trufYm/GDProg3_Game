@@ -22,7 +22,7 @@ void GameController::detectPlayerCollision()
     {
         if ((*npcList[i]).getGlobalBounds().intersects(player.getGlobalBounds()))
         {
-            (*npcList[i]).setPlayerCollided(true);
+            (*npcList[i]).changeToFollower();
 
             followerList.push_back(npcList[i]);
 
@@ -32,20 +32,32 @@ void GameController::detectPlayerCollision()
     }
 }
 
-//Check which era player is on, will be used for sprite changes and win screen once implemented
-void GameController::npcCounter()
+//Check how many followers player has and change era accordingly
+void GameController::checkFollowerCount()
 {
     if (followerList.size() >= 11 && followerList.size() < 20)
+    {
         currentEra = 2;
+        player.changeSpriteTexture(currentEra);
+    }
         
     else if (followerList.size() >= 21 && followerList.size() < 30)
+    {
         currentEra = 3;
+        player.changeSpriteTexture(currentEra);
+    }
         
     else if (followerList.size() >= 31 && followerList.size() < 40)
+    {
         currentEra = 4;
+        player.changeSpriteTexture(currentEra);
+    }
 
     else if (followerList.size() >= 41 && followerList.size() < 50)
+    {
         currentEra = 5;
+        player.changeSpriteTexture(currentEra);
+    }
 
     //Probably (definitely) inefficient but :D
     for (int i = 0; i < followerList.size(); i++)
@@ -65,14 +77,14 @@ void GameController::npcCounter()
 }
 
 //Draws all elements and sets window view
-void GameController::render()
+void GameController::drawElementsToWindow()
 {
     window.clear();
     window.setView(view1);
     
     map.drawTo(window);
 
-    logicUpdate();
+    updateGameState();
 
     view1.setCenter(player.getPosition());
 
@@ -92,10 +104,10 @@ void GameController::render()
 }
 
 //Updates current gamestate
-void GameController::logicUpdate()
+void GameController::updateGameState()
 {
     //Update player's position based on movement
-    player.update();
+    player.movePlayer();
 
     detectPlayerCollision();
 
@@ -110,7 +122,7 @@ void GameController::logicUpdate()
         (*followerList[i]).followPlayer(player.getPosition(), dt);
     }
 
-    npcCounter();
+    checkFollowerCount();
 
     //Spawn new follower object after 0.9 secs
     if (time_interval >= 0.9)
@@ -135,21 +147,21 @@ void GameController::eventHandler(Event event)
             window.close();
 
         if (event.type == Event::KeyPressed)
-            player.processEvents(event.key.code, true);
+            player.processInput(event.key.code, true);
 
         if (event.type == Event::KeyReleased)
-            player.processEvents(event.key.code, false);
+            player.processInput(event.key.code, false);
     }
 }
 
 //Run *beat drops* ez4ence ence ence
-void GameController::run()
+void GameController::gameLoop()
 {
     while (window.isOpen())
     {
         Event event{};
         eventHandler(event);
-        render();
+        drawElementsToWindow();
     }
 }
 

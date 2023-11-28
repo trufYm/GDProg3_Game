@@ -4,7 +4,7 @@ int main()
 {
     GameController game;
 
-    game.run();
+    game.gameLoop();
 
     return 0;
 }
