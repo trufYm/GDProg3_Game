@@ -33,6 +33,8 @@ public:
 
     void movePlayer();
 
+    void changeSpriteTexture(int currentEra);
+
     void drawTo(RenderWindow& window) const;
 
     Vector2f getPosition();
@@ -42,8 +44,6 @@ public:
     float getSpeed() const;
 
     void setPosition(Vector2f pos);
-
-    void changeSpriteTexture(int currentEra);
 };
 
 #endif // !PLAYER_H

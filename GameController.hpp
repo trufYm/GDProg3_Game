@@ -53,7 +53,6 @@ public:
     void eventHandler(Event event);
 
     void gameLoop();
-
 };
 
 #endif // !GAMECONTROLLER_H
