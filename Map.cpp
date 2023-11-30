@@ -8,9 +8,6 @@ Map::Map()
 
 	mapSize = Vector2f(bgTexture.getSize());
 	mapBorder = { mapSize.x - 700, mapSize.y - 500 };
-
-	cout << "Map Size: " << mapSize.x << " " << mapSize.y << endl;
-	cout << "Map border: " << mapBorder.x << " " << mapBorder.y << endl;
 };
 
 //Move player and followers to other side of map

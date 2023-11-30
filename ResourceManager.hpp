@@ -14,27 +14,29 @@ using namespace sf;
 class ResourceManager
 {
 protected:
-	Texture backgroundTex;
+	Texture backgroundTex,
+			
+		followerTexCaveman,
+		followerTexAncient,
+		followerTexMedieval,
+		followerTexPreModern,
+		followerTexModern,
 
-	Texture followerTexCaveman;
-	Texture followerTexAncient;
-	Texture followerTexMedieval;
-	Texture followerTexPreModern;
-	Texture followerTexModern;
+		resourceTexCaveman,
+		resourceTexAncient,
+		resourceTexMedieval,
+		resourceTexPreModern,
+		resourceTexModern,
 
-	Texture resourceTexCaveman;
-	Texture resourceTexAncient;
-	Texture resourceTexMedieval;
-	Texture resourceTexPreModern;
-	Texture resourceTexModern;
-
-	Texture playerTexCaveman;
-	Texture playerTexAncient;
-	Texture playerTexMedieval;
-	Texture playerTexPreModern;
-	Texture playerTexModern;
+		playerTexCaveman,
+		playerTexAncient,
+		playerTexMedieval,
+		playerTexPreModern,
+		playerTexModern;
 
 	Music music;
+
+	Font font;
 
 public:
 	ResourceManager();
@@ -46,6 +48,8 @@ public:
 	Texture loadFollowerTexture(int currentEra);
 
 	Texture loadBackgroundTexture();
+
+	Font loadFont();
 
 	void playMusic();
 };

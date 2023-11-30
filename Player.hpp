@@ -15,17 +15,16 @@ using namespace sf;
 class Player : protected ResourceManager
 {
 private:
-    string playerName;
     Texture texture;
     Sprite sprite;
     Clock clock;
 
     float speed;
 
-    bool up;
-    bool down;
-    bool left;
-    bool right;
+    bool up,
+        down,
+        left,
+        right;
 
 public:
     Player();

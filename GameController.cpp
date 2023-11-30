@@ -3,7 +3,7 @@
 GameController::GameController()
 {
     window.create(VideoMode(1280, 960), "GDPROG3 MCO");
-    //window.setFramerateLimit(30);     //used for testing framerate independent gameplay
+    window.setFramerateLimit(60);     //used for testing framerate independent gameplay
 
     view1.setSize(1280, 960);
 
@@ -73,34 +73,7 @@ void GameController::checkFollowerCount()
     }
 
     if (followerList.size() == 50)
-        cout << "You've won!" << endl;
-}
-
-//Draws all elements and sets window view
-void GameController::drawElementsToWindow()
-{
-    window.clear();
-    window.setView(view1);
-    
-    map.drawTo(window);
-
-    updateGameState();
-
-    view1.setCenter(player.getPosition());
-
-    for (int i = 0; i < npcList.size(); i++)
-    {
-        (*npcList[i]).drawTo(window);
-    }
-
-    for (int i = 0; i < followerList.size(); i++)
-    {
-        (*followerList[i]).drawTo(window);
-    }
-
-    player.drawTo(window);
-
-    window.display();
+        menu.drawWinScreen(window);
 }
 
 //Updates current gamestate
@@ -138,6 +111,33 @@ void GameController::updateGameState()
     map.detectPlayer(&player, followerList);
 }
 
+//Draws all elements and sets window view
+void GameController::drawElementsToWindow()
+{
+    window.clear();
+    window.setView(view1);
+    
+    map.drawTo(window);
+
+    updateGameState();
+
+    view1.setCenter(player.getPosition());
+
+    for (int i = 0; i < npcList.size(); i++)
+    {
+        (*npcList[i]).drawTo(window);
+    }
+
+    for (int i = 0; i < followerList.size(); i++)
+    {
+        (*followerList[i]).drawTo(window);
+    }
+
+    player.drawTo(window);
+
+    window.display();
+}
+
 //Handles events and sends them to appropriate function
 void GameController::eventHandler(Event event)
 {
@@ -157,20 +157,13 @@ void GameController::eventHandler(Event event)
 //Run *beat drops* ez4ence ence ence
 void GameController::gameLoop()
 {
+    menu.drawMainMenu(window);
+
     while (window.isOpen())
     {
         Event event{};
         eventHandler(event);
+
         drawElementsToWindow();
     }
 }
-
-/*Idea for menus:
-Add new bool function playerHasWon, set to true in npcCounter.
-Then, have check in run function for hasWon. If true, open menu class that
-clears current window and draws new stuff. In theory should make current game
-loop stop and only draw menu loop
-
-Send menu class window reference
-
-Also maybe menu inherits from resource manager? for sprite textures.*/
