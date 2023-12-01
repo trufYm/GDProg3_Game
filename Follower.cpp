@@ -1,13 +1,11 @@
 #include <Follower.hpp>
 
-Follower::Follower(Vector2f size, int era)
+Follower::Follower(Vector2f mapSize, int era)
 {
 	random_device random;
 
-	Vector2u mapSize = Vector2u(size);
-
-	pos.x = random() % mapSize.x;
-	pos.y = random() % mapSize.y;
+	pos.x = float(int(random()) % int(mapSize.x - 300));
+	pos.y = float(int(random()) % int(mapSize.y - 300));
 
 	currentEra = era;
 

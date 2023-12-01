@@ -29,7 +29,7 @@ private:
 	int currentEra;
 
 public:
-	Follower(Vector2f size, int era);
+	Follower(Vector2f mapSize, int era);
 
 	void followPlayer(Vector2f playerPos, float dt);
 
