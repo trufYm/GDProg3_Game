@@ -12,6 +12,13 @@ GameController::GameController()
     resource.playMusic();
 
     currentEra = 1;
+
+    for (int i = 0; i < 50; i++)
+    {
+        Wall* newWall = new Wall(map.getMapBorder());
+
+        wallList.push_back(newWall);
+    }
 }
 
 /*Detect collision between npc (follower) object and player.
@@ -38,25 +45,25 @@ void GameController::checkFollowerCount()
     if (followerList.size() >= 11 && followerList.size() < 20)
     {
         currentEra = 2;
-        player.changeSpriteTexture(currentEra);
+        player.changeCurrentEra(currentEra);
     }
         
     else if (followerList.size() >= 21 && followerList.size() < 30)
     {
         currentEra = 3;
-        player.changeSpriteTexture(currentEra);
+        player.changeCurrentEra(currentEra);
     }
         
     else if (followerList.size() >= 31 && followerList.size() < 40)
     {
         currentEra = 4;
-        player.changeSpriteTexture(currentEra);
+        player.changeCurrentEra(currentEra);
     }
 
     else if (followerList.size() >= 41 && followerList.size() < 50)
     {
         currentEra = 5;
-        player.changeSpriteTexture(currentEra);
+        player.changeCurrentEra(currentEra);
     }
 
     //Probably (definitely) inefficient but :D
@@ -134,6 +141,11 @@ void GameController::drawElementsToWindow()
     }
 
     player.drawTo(window);
+
+    for (int i = 0; i < wallList.size(); i++)
+    {
+        (*wallList[i]).drawTo(window);
+    }
 
     window.display();
 }

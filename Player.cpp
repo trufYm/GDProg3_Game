@@ -2,7 +2,9 @@
 
 Player::Player() //Default constructor
 {
-    texture = loadPlayerTexture(1);
+    currentEra = 1;
+
+    texture = loadPlayerTexture(currentEra);
 
     sprite.setTexture(texture);
     sprite.setScale(2, 2);
@@ -61,8 +63,13 @@ void Player::movePlayer()
     sprite.move(movement);
 }
 
-void Player::changeSpriteTexture(int currentEra)
+void Player::changeCurrentEra(int era)
 {
+    if (currentEra == era)
+        return;
+
+    currentEra = era;
+
     texture = loadPlayerTexture(currentEra);
 
     sprite.setTexture(texture);
@@ -93,4 +100,9 @@ float Player::getSpeed() const
 void Player::setPosition(Vector2f pos)
 {
     sprite.setPosition(pos.x, pos.y);
+}
+
+void Player::setPosition(float x, float y)
+{
+    sprite.setPosition(x, y);
 }

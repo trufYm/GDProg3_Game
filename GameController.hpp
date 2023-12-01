@@ -11,6 +11,7 @@
 #include <Player.hpp>
 #include <Follower.hpp>
 #include <Map.hpp>
+#include <Wall.hpp>
 #include <Menu.hpp>
 
 using namespace std;
@@ -30,6 +31,8 @@ private:
     Menu menu;
 
     vector<Follower*> npcList, followerList;
+
+    vector<Wall*> wallList;
 
     Clock clock;
 
