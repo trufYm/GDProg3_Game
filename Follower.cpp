@@ -4,8 +4,8 @@ Follower::Follower(Vector2f mapSize, int era)
 {
 	random_device random;
 
-	pos.x = float(int(random()) % int(mapSize.x - 300));
-	pos.y = float(int(random()) % int(mapSize.y - 300));
+	pos.x = random() % int(mapSize.x - 300);
+	pos.y = random() % int(mapSize.y - 300);
 
 	currentEra = era;
 

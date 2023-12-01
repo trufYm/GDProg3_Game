@@ -13,7 +13,7 @@ GameController::GameController()
 
     currentEra = 1;
 
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 100; i++)
     {
         Wall* newWall = new Wall(map.getMapBorder());
 
@@ -36,6 +36,11 @@ void GameController::detectPlayerCollision()
             npcList.erase(npcList.begin() + i);
         }
             
+    }
+
+    for (int i = 0; i < wallList.size(); i++)
+    {
+        (*wallList[i]).movePlayer();
     }
 }
 

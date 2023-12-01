@@ -2,15 +2,17 @@
 
 Wall::Wall(Vector2f mapSize)
 {
-	/*texture = loadWallTexture*/
+    if (!texture.loadFromFile("Resources/akame(2).png"))
+        cout << "Error loading wall texture" << endl;
 
 	random_device random;
 
-    pos.x = float(int(random()) % int(mapSize.x - 300));
-    pos.y = float(int(random()) % int(mapSize.y - 300));
+    pos.x = random() % int(mapSize.x - 300);
+    pos.y = random() % int(mapSize.y - 300);
 
 	currentEra = 1;
 
+    sprite.setTexture(texture);
 	sprite.setColor(Color::Red);
 	sprite.setPosition(pos);
 }

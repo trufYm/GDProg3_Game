@@ -14,7 +14,7 @@
 class Wall : protected ResourceManager
 {
 private:
-	//Texture texture;
+	Texture texture;
 
 	Player player;
 

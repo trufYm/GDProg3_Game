@@ -2,6 +2,10 @@
 
 ResourceManager::ResourceManager() 
 {
+}
+
+Texture ResourceManager::loadPlayerTexture(int currentEra)
+{
 	//Player Textures
 	if (!playerTexCaveman.loadFromFile("Resources/player_caveman.png"))
 		cout << "Error loading player texture" << endl;
@@ -18,51 +22,6 @@ ResourceManager::ResourceManager()
 	if (!playerTexModern.loadFromFile("Resources/player_modern.png"))
 		cout << "Error loading player texture" << endl;
 
-	//Resource Textures
-	if (!resourceTexCaveman.loadFromFile("Resources/resource_caveman.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!resourceTexAncient.loadFromFile("Resources/resource_ancient.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!resourceTexMedieval.loadFromFile("Resources/resource_medieval.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!resourceTexPreModern.loadFromFile("Resources/resource_premodern.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!resourceTexModern.loadFromFile("Resources/resource_modern.png"))
-		cout << "Error loading follower texture" << endl;
-
-	//Follower Textures
-	if (!followerTexCaveman.loadFromFile("Resources/follower_caveman.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!followerTexAncient.loadFromFile("Resources/follower_ancient.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!followerTexMedieval.loadFromFile("Resources/follower_medieval.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!followerTexPreModern.loadFromFile("Resources/follower_premodern.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!followerTexModern.loadFromFile("Resources/follower_modern.png"))
-		cout << "Error loading follower texture" << endl;
-
-	
-
-	//Font file
-	if (!font.loadFromFile("Resources/Caveman.ttf"))
-		cout << "Error loading font." << endl;
-
-	//Music files
-	if (!music.openFromFile("Resources/holoBossaNova.wav"))
-		cout << "Error loading music." << endl;
-}
-
-Texture ResourceManager::loadPlayerTexture(int currentEra)
-{
 	switch (currentEra)
 	{
 	case 1:
@@ -87,6 +46,22 @@ Texture ResourceManager::loadPlayerTexture(int currentEra)
 
 Texture ResourceManager::loadResourceTexture(int currentEra)
 {
+	//Resource Textures
+	if (!resourceTexCaveman.loadFromFile("Resources/resource_caveman.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!resourceTexAncient.loadFromFile("Resources/resource_ancient.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!resourceTexMedieval.loadFromFile("Resources/resource_medieval.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!resourceTexPreModern.loadFromFile("Resources/resource_premodern.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!resourceTexModern.loadFromFile("Resources/resource_modern.png"))
+		cout << "Error loading follower texture" << endl;
+
 	switch (currentEra)
 	{
 		case 1:
@@ -111,6 +86,22 @@ Texture ResourceManager::loadResourceTexture(int currentEra)
 
 Texture ResourceManager::loadFollowerTexture(int currentEra)
 {
+	//Follower Textures
+	if (!followerTexCaveman.loadFromFile("Resources/follower_caveman.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexAncient.loadFromFile("Resources/follower_ancient.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexMedieval.loadFromFile("Resources/follower_medieval.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexPreModern.loadFromFile("Resources/follower_premodern.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexModern.loadFromFile("Resources/follower_modern.png"))
+		cout << "Error loading follower texture" << endl;
+
 	switch (currentEra)
 	{
 	case 1:
@@ -144,10 +135,18 @@ Texture ResourceManager::loadBackgroundTexture()
 
 Font ResourceManager::loadFont()
 {
+	//Font file
+	if (!font.loadFromFile("Resources/Caveman.ttf"))
+		cout << "Error loading font." << endl;
+
 	return font;
 }
 
 void ResourceManager::playMusic()
 {
+	//Music files
+	if (!music.openFromFile("Resources/holoBossaNova.wav"))
+		cout << "Error loading music." << endl;
+
 	music.play();
 }
