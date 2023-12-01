@@ -17,8 +17,7 @@ using namespace sf;
 class Map : protected ResourceManager
 {
 private:
-	Vector2f mapSize;
-	Vector2f mapBorder;
+	Vector2f mapSize, mapBorder;
 
 	Texture bgTexture;
 	Sprite background;

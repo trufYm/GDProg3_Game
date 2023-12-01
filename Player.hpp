@@ -15,17 +15,16 @@ using namespace sf;
 class Player : protected ResourceManager
 {
 private:
-    string playerName;
     Texture texture;
     Sprite sprite;
     Clock clock;
 
     float speed;
 
-    bool up;
-    bool down;
-    bool left;
-    bool right;
+    bool up,
+        down,
+        left,
+        right;
 
 public:
     Player();
@@ -33,6 +32,8 @@ public:
     void processInput(Keyboard::Key key, bool isPressed);
 
     void movePlayer();
+
+    void changeSpriteTexture(int currentEra);
 
     void drawTo(RenderWindow& window) const;
 
@@ -43,8 +44,6 @@ public:
     float getSpeed() const;
 
     void setPosition(Vector2f pos);
-
-    void changeSpriteTexture(int currentEra);
 };
 
 #endif // !PLAYER_H

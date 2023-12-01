@@ -29,11 +29,13 @@ private:
 	int currentEra;
 
 public:
-	Follower();
-
 	Follower(Vector2f size, int era);
 
 	void followPlayer(Vector2f playerPos, float dt);
+
+	void changeCurrentEra(int era);
+
+	void changeToFollower();
 
 	FloatRect getGlobalBounds();
 
@@ -44,10 +46,6 @@ public:
 	void setPosition(Vector2f pos);
 
 	void setBuffer(float num);
-
-	void changeCurrentEra(int era);
-
-	void changeToFollower();
 };
 
 #endif

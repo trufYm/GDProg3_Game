@@ -11,6 +11,7 @@
 #include <Player.hpp>
 #include <Follower.hpp>
 #include <Map.hpp>
+#include <Menu.hpp>
 
 using namespace std;
 using namespace sf;
@@ -26,8 +27,10 @@ private:
 
     ResourceManager resource;
 
-    vector<Follower*> npcList;
-    vector<Follower*> followerList;
+    Menu menu;
+
+    vector<Follower*> npcList, followerList;
+
     Clock clock;
 
     View view1;
@@ -43,14 +46,13 @@ public:
 
     void checkFollowerCount();
 
-    void drawElementsToWindow();
-
     void updateGameState();
+
+    void drawElementsToWindow();
 
     void eventHandler(Event event);
 
     void gameLoop();
-
 };
 
 #endif // !GAMECONTROLLER_H

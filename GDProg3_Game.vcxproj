@@ -141,14 +141,16 @@
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Follower.hpp" />
     <ClInclude Include="GameController.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Player.hpp" />
-<ClInclude Include="Map.hpp" />
+    <ClInclude Include="Map.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

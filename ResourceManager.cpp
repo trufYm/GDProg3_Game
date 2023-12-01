@@ -127,6 +127,14 @@ Texture ResourceManager::loadBackgroundTexture()
 	return backgroundTex;
 }
 
+Font ResourceManager::loadFont()
+{
+	if (!font.loadFromFile("Caveman.ttf"))
+		cout << "Error loading font." << endl;
+
+	return font;
+}
+
 void ResourceManager::playMusic()
 {
 	if (!music.openFromFile("holoBossaNova.wav"))
