@@ -9,11 +9,11 @@ GameController::GameController()
 
     time_interval = 0;
 
-    resource.playMusic();
+    //resource.playMusic();
 
     currentEra = 1;
 
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 80; i++)
     {
         Wall* newWall = new Wall(map.getMapBorder());
 
@@ -40,7 +40,7 @@ void GameController::detectPlayerCollision()
 
     for (int i = 0; i < wallList.size(); i++)
     {
-        (*wallList[i]).movePlayer();
+        (*wallList[i]).movePlayer(player);
     }
 }
 
@@ -77,11 +77,14 @@ void GameController::checkFollowerCount()
         (*followerList[i]).changeCurrentEra(currentEra);
     }
 
-    //Will implement different sprite changes depending on if follower or npc
-
     for (int i = 0; i < npcList.size(); i++)
     {
         (*npcList[i]).changeCurrentEra(currentEra);
+    }
+
+    for (int i = 0; i < wallList.size(); i++)
+    {
+        (*wallList[i]).changeCurrentEra(currentEra);
     }
 
     if (followerList.size() == 50)

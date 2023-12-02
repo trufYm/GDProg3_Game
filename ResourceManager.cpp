@@ -48,19 +48,19 @@ Texture ResourceManager::loadResourceTexture(int currentEra)
 {
 	//Resource Textures
 	if (!resourceTexCaveman.loadFromFile("Resources/resource_caveman.png"))
-		cout << "Error loading follower texture" << endl;
+		cout << "Error loading resource texture" << endl;
 
 	if (!resourceTexAncient.loadFromFile("Resources/resource_ancient.png"))
-		cout << "Error loading follower texture" << endl;
+		cout << "Error loading resource texture" << endl;
 
 	if (!resourceTexMedieval.loadFromFile("Resources/resource_medieval.png"))
-		cout << "Error loading follower texture" << endl;
+		cout << "Error loading resource texture" << endl;
 
 	if (!resourceTexPreModern.loadFromFile("Resources/resource_premodern.png"))
-		cout << "Error loading follower texture" << endl;
+		cout << "Error loading resource texture" << endl;
 
 	if (!resourceTexModern.loadFromFile("Resources/resource_modern.png"))
-		cout << "Error loading follower texture" << endl;
+		cout << "Error loading resource texture" << endl;
 
 	switch (currentEra)
 	{
@@ -122,6 +122,46 @@ Texture ResourceManager::loadFollowerTexture(int currentEra)
 	}
 
 	return followerTexCaveman;
+}
+
+Texture ResourceManager::loadWallTexture(int currentEra)
+{
+	//Wall Textures
+	if (!wallTexCaveman.loadFromFile("Resources/wall_caveman.png"))
+		cout << "Error loading wall texture" << endl;
+
+	if (!wallTexAncient.loadFromFile("Resources/wall_ancient.png"))
+		cout << "Error loading wall texture" << endl;
+
+	if (!wallTexMedieval.loadFromFile("Resources/wall_medieval.png"))
+		cout << "Error loading wall texture" << endl;
+
+	if (!wallTexPreModern.loadFromFile("Resources/wall_premodern.png"))
+		cout << "Error loading wall texture" << endl;
+
+	if (!wallTexModern.loadFromFile("Resources/wall_modern.png"))
+		cout << "Error loading wall texture" << endl;
+
+	switch (currentEra)
+	{
+	case 1:
+		return wallTexCaveman;
+		break;
+	case 2:
+		return wallTexAncient;
+		break;
+	case 3:
+		return wallTexMedieval;
+		break;
+	case 4:
+		return wallTexPreModern;
+		break;
+	case 5:
+		return wallTexModern;
+		break;
+	}
+
+	return wallTexCaveman;
 }
 
 Texture ResourceManager::loadBackgroundTexture()

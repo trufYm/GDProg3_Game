@@ -16,8 +16,6 @@ class Wall : protected ResourceManager
 private:
 	Texture texture;
 
-	Player player;
-
 	FloatRect collisionRect;
 
 	Sprite sprite;
@@ -29,7 +27,9 @@ private:
 public:
 	Wall(Vector2f mapSize);
 
-	void movePlayer();
+	void movePlayer(Player& player);
+
+	void changeCurrentEra(int era);
 
 	FloatRect getCollisionBounds();
 
