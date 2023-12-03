@@ -66,3 +66,8 @@ Vector2f Map::getMapBorder() const
 {
 	return mapBorder;
 }
+
+Vector2f Map::getMapSize() const
+{
+	return mapSize;
+}

@@ -24,12 +24,14 @@ private:
 
 	bool playerCollided;
 
-	float buffer;
+	float buffer, mult, time_interval;
 
 	int currentEra;
 
 public:
 	Follower(Vector2f mapSize, int era);
+
+	void moveAsResource(float dt);
 
 	void followPlayer(Vector2f playerPos, float dt);
 

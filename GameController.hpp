@@ -32,7 +32,7 @@ private:
 
     vector<Follower*> npcList, followerList;
 
-    vector<Wall*> wallList;
+    vector<Wall*> wallList, obstList;
 
     Clock clock;
 

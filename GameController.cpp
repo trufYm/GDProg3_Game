@@ -9,15 +9,22 @@ GameController::GameController()
 
     time_interval = 0;
 
-    //resource.playMusic();
+    resource.playMusic();
 
     currentEra = 1;
 
-    for (int i = 0; i < 80; i++)
+    for (int i = 0; i < 60; i++)
     {
-        Wall* newWall = new Wall(map.getMapBorder());
+        Wall* newWall = new Wall(map.getMapSize(), 0);
 
         wallList.push_back(newWall);
+    }
+
+    for (int i = 0; i < 90; i++)
+    {
+        Wall* newObst = new Wall(map.getMapSize(), 1);
+
+       obstList.push_back(newObst);
     }
 }
 
@@ -40,6 +47,11 @@ void GameController::detectPlayerCollision()
     for (int i = 0; i < wallList.size(); i++)
     {
         (*wallList[i]).movePlayer(player);
+    }
+
+    for (int i = 0; i < obstList.size(); i++)
+    {
+        (*obstList[i]).movePlayer(player);
     }
 }
 
@@ -86,6 +98,11 @@ void GameController::checkFollowerCount()
         (*wallList[i]).changeCurrentEra(currentEra);
     }
 
+    for (int i = 0; i < obstList.size(); i++)
+    {
+        (*obstList[i]).changeCurrentEra(currentEra);
+    }
+
     if (followerList.size() == 50)
         menu.drawWinScreen(window);
 }
@@ -121,6 +138,11 @@ void GameController::updateGameState()
         time_interval = 0;
     }
 
+    for (int i = 0; i < npcList.size(); i++)
+    {
+        (*npcList[i]).moveAsResource(dt);
+    }
+
     //Check if player has gone past map bounds
     map.detectPlayer(&player, followerList);
 }
@@ -152,6 +174,11 @@ void GameController::drawElementsToWindow()
     for (int i = 0; i < wallList.size(); i++)
     {
         (*wallList[i]).drawTo(window);
+    }
+
+    for (int i = 0; i < obstList.size(); i++)
+    {
+        (*obstList[i]).drawTo(window);
     }
 
     window.display();

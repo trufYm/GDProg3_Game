@@ -1,24 +1,45 @@
 #include <Wall.hpp>
 
-Wall::Wall(Vector2f mapSize)
+//Note for future: maybe new class obstacle inherits from wall
+
+Wall::Wall(Vector2f mapSize, int ver)
 {
     currentEra = 1;
 
-    texture = loadWallTexture(currentEra);
+    random_device random;
 
-	random_device random;
+    version = ver;
 
-    pos.x = random() % int(mapSize.x - 500);
-    pos.y = random() % int(mapSize.y - 500);
+    pos.x = random() % int(mapSize.x);
+    pos.y = random() % int(mapSize.y);
 
-    sprite.setTexture(texture);
-    sprite.setScale(2, 2);
-	sprite.setPosition(pos);
+    if (version == 0)
+    {
+        texture = loadWallTexture(currentEra);
 
-    collisionRect.top = sprite.getGlobalBounds().top + 50;
-    collisionRect.left = sprite.getGlobalBounds().left + 45;
-    collisionRect.height = sprite.getGlobalBounds().height - 50;
-    collisionRect.width = sprite.getGlobalBounds().width - 80;
+        sprite.setTexture(texture);
+        sprite.setScale(3, 3);
+        sprite.setPosition(pos);
+
+        collisionRect.top = sprite.getGlobalBounds().top + 50;
+        collisionRect.left = sprite.getGlobalBounds().left + 45;
+        collisionRect.height = sprite.getGlobalBounds().height - 50;
+        collisionRect.width = sprite.getGlobalBounds().width - 80;
+    }
+
+    else if (version == 1)
+    {
+        texture = loadObstTexture(currentEra);
+
+        sprite.setTexture(texture);
+        sprite.setScale(2, 2);
+        sprite.setPosition(pos);
+
+        collisionRect.top = sprite.getGlobalBounds().top;
+        collisionRect.left = sprite.getGlobalBounds().left;
+        collisionRect.height = sprite.getGlobalBounds().height;
+        collisionRect.width = sprite.getGlobalBounds().width;
+    }
 }
 
 void Wall::changeCollisionBounds()
@@ -51,12 +72,14 @@ void Wall::changeCollisionBounds()
         collisionRect.left = sprite.getGlobalBounds().left + 45;
         collisionRect.height = sprite.getGlobalBounds().height - 80;
         collisionRect.width = sprite.getGlobalBounds().width - 80;
+        break;
 
     case 5:
         collisionRect.top = sprite.getGlobalBounds().top + 30;
         collisionRect.left = sprite.getGlobalBounds().left + 45;
         collisionRect.height = sprite.getGlobalBounds().height - 50;
         collisionRect.width = sprite.getGlobalBounds().width - 75;
+        break;
     }
 }
 
@@ -69,7 +92,7 @@ void Wall::movePlayer(Player& player) const
         //Bottom Collision
         if (playerBounds.top < collisionRect.top
             && playerBounds.top + playerBounds.height < collisionRect.top + collisionRect.height
-            && playerBounds.left < collisionRect.left + collisionRect.width
+            && playerBounds.left                      < collisionRect.left + collisionRect.width
             && playerBounds.left + playerBounds.width > collisionRect.left)
         {
             player.setPosition(playerBounds.left, collisionRect.top - playerBounds.height);
@@ -78,7 +101,7 @@ void Wall::movePlayer(Player& player) const
         //Top Collision
         else if (playerBounds.top > collisionRect.top
             && playerBounds.top + playerBounds.height > collisionRect.top + collisionRect.height
-            && playerBounds.left < collisionRect.left + collisionRect.width
+            && playerBounds.left                      < collisionRect.left + collisionRect.width
             && playerBounds.left + playerBounds.width > collisionRect.left)
         {
             player.setPosition(playerBounds.left, collisionRect.top + collisionRect.height);
@@ -87,7 +110,7 @@ void Wall::movePlayer(Player& player) const
         //Right Collision
         else if (playerBounds.left < collisionRect.left
             && playerBounds.left + playerBounds.width < collisionRect.left + collisionRect.width
-            && playerBounds.top < collisionRect.top + collisionRect.height
+            && playerBounds.top                       < collisionRect.top + collisionRect.height
             && playerBounds.top + playerBounds.height > collisionRect.top)
         {
             player.setPosition(collisionRect.left - playerBounds.width, playerBounds.top);
@@ -96,7 +119,7 @@ void Wall::movePlayer(Player& player) const
         //Left Collision
         else if (playerBounds.left > collisionRect.left
             && playerBounds.left + playerBounds.width > collisionRect.left + collisionRect.width
-            && playerBounds.top < collisionRect.top + collisionRect.height
+            && playerBounds.top                       < collisionRect.top + collisionRect.height
             && playerBounds.top + playerBounds.height > collisionRect.top)
         {
             player.setPosition(collisionRect.left + collisionRect.width, playerBounds.top);
@@ -112,11 +135,16 @@ void Wall::changeCurrentEra(int era)
 
     currentEra = era;
 
-    texture = loadWallTexture(currentEra);
+    if (version == 0)
+        texture = loadWallTexture(currentEra);
+
+    if (version == 1)
+        texture = loadObstTexture(currentEra);
 
     sprite.setTexture(texture);
-
-    changeCollisionBounds();
+    
+    if (version == 0)
+        changeCollisionBounds();
 }
 
 void Wall::drawTo(RenderWindow& window) const

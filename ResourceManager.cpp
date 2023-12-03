@@ -164,6 +164,46 @@ Texture ResourceManager::loadWallTexture(int currentEra)
 	return wallTexCaveman;
 }
 
+Texture ResourceManager::loadObstTexture(int currentEra)
+{
+	//Obstacle Textures
+	if (!obstTexCaveman.loadFromFile("Resources/obst_caveman.png"))
+		cout << "Error loading obst texture" << endl;
+
+	if (!obstTexAncient.loadFromFile("Resources/obst_ancient.png"))
+		cout << "Error loading obst texture" << endl;
+
+	if (!obstTexMedieval.loadFromFile("Resources/obst_medieval.png"))
+		cout << "Error loading obst texture" << endl;
+
+	if (!obstTexPreModern.loadFromFile("Resources/obst_premodern.png"))
+		cout << "Error loading obst texture" << endl;
+
+	if (!obstTexModern.loadFromFile("Resources/obst_modern.png"))
+		cout << "Error loading obst texture" << endl;
+
+	switch (currentEra)
+	{
+	case 1:
+		return obstTexCaveman;
+		break;
+	case 2:
+		return obstTexAncient;
+		break;
+	case 3:
+		return obstTexMedieval;
+		break;
+	case 4:
+		return obstTexPreModern;
+		break;
+	case 5:
+		return obstTexModern;
+		break;
+	}
+
+	return obstTexCaveman;
+}
+
 Texture ResourceManager::loadBackgroundTexture()
 {
 	//Putting this in constructor crashes game. Maybe size issue?

@@ -38,7 +38,13 @@ protected:
 		wallTexAncient,
 		wallTexMedieval,
 		wallTexPreModern,
-		wallTexModern;
+		wallTexModern,
+
+		obstTexCaveman,
+		obstTexAncient,
+		obstTexMedieval,
+		obstTexPreModern,
+		obstTexModern;
 
 	Music music;
 
@@ -54,6 +60,8 @@ public:
 	Texture loadFollowerTexture(int currentEra);
 
 	Texture loadWallTexture(int currentEra);
+
+	Texture loadObstTexture(int currentEra);
 
 	Texture loadBackgroundTexture();
 

@@ -22,10 +22,10 @@ private:
 
 	Vector2f pos;
 
-	int currentEra;
+	int currentEra, version;
 
 public:
-	Wall(Vector2f mapSize);
+	Wall(Vector2f mapSize, int ver);
 
 	void movePlayer(Player& player) const;
 
@@ -34,7 +34,6 @@ public:
 	void changeCollisionBounds();
 
 	void drawTo(RenderWindow& window) const;
-
 };
 
 #endif

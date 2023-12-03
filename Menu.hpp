@@ -15,7 +15,9 @@ using namespace sf;
 class Menu : protected ResourceManager
 {
 private:
-	Text titleText, subText;
+	Text titleText, subText1, subText2;
+
+	RectangleShape button1, button2;
 
 	Sprite background;
 	Texture bgTex;

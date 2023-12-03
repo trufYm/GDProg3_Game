@@ -1,11 +1,13 @@
 #include <Follower.hpp>
 
+//Note for future: maybe new class resource inherits from follower
+
 Follower::Follower(Vector2f mapSize, int era)
 {
 	random_device random;
 
-	pos.x = random() % int(mapSize.x - 500);
-	pos.y = random() % int(mapSize.y - 500);
+	pos.x = random() % int(mapSize.x + 300);
+	pos.y = random() % int(mapSize.y - 300);
 
 	currentEra = era;
 
@@ -16,8 +18,37 @@ Follower::Follower(Vector2f mapSize, int era)
 	rect.setPosition(pos);
 
 	playerCollided = false;
-
 	buffer = 60.0f;
+	mult = 60.f;
+	time_interval = 0;
+}
+
+void Follower::moveAsResource(float dt)
+{
+	random_device random;
+
+	time_interval += dt;
+
+	int speed = random() % 6;
+
+	float step = speed * dt * mult;
+
+	if (int(time_interval) % 8 == 0)
+		rect.move(0, step);
+	else if (int(time_interval) % 8 == 1)
+		rect.move(0, -step);
+	else if (int(time_interval) % 8 == 2)
+		rect.move(step, 0);
+	else if (int(time_interval) % 8 == 3)
+		rect.move(-step, 0);
+	else if (int(time_interval) % 8 == 4)
+		rect.move(step, step);
+	else if (int(time_interval) % 8 == 5)
+		rect.move(-step, -step);
+	else if (int(time_interval) % 8 == 6)
+		rect.move(step, -step);
+	else if (int(time_interval) % 8 == 7)
+		rect.move(-step, step);
 }
 
 /*Take player's current position and move towards it.
@@ -27,9 +58,7 @@ void Follower::followPlayer(Vector2f playerPos, float dt)
 {
 	Vector2f currentPos = rect.getPosition();
 	Vector2f movement(0, 0);
-
-	float mult = 60.f;
-
+	
 	if (playerCollided)
 	{
 		float step = (player.getSpeed() * 0.95f) * dt * mult;
