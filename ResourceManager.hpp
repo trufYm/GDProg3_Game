@@ -47,7 +47,14 @@ protected:
 		obstTexPreModern,
 		obstTexModern;
 
-	static Music music;
+	static Music musicCaveman,
+				musicAncient,
+				musicMedieval,
+				musicPreModern,
+				musicModern,
+				musicMenu;
+
+	static Music* current;
 
 	static Font font;
 
@@ -74,7 +81,7 @@ public:
 
 	static Font loadFont();
 
-	static void playMusic();
+	static void playMusic(int choice);
 
 	static void playEraChangeSound();
 };

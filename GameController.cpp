@@ -9,7 +9,7 @@ GameController::GameController()
 
     time_interval = 0;
 
-    resource.playMusic();
+    resource.playMusic(1);
 
     currentEra = 1;
 
@@ -98,6 +98,7 @@ void GameController::checkFollowerCount()
         }
 
         resource.playEraChangeSound();
+        resource.playMusic(currentEra + 1);
     }
    
     if (followerList.size() == 50)
@@ -200,9 +201,9 @@ void GameController::eventHandler(Event event)
 //Run *beat drops* ez4ence ence ence
 void GameController::gameLoop()
 {
-
-
     menu.drawMainMenu(window);
+
+    resource.playMusic(2);
 
     while (window.isOpen())
     {

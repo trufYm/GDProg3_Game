@@ -12,7 +12,11 @@ Texture ResourceManager::backgroundTex,
 		ResourceManager::obstTexCaveman, ResourceManager::obstTexAncient, ResourceManager::obstTexMedieval,
 		ResourceManager::obstTexPreModern, ResourceManager::obstTexModern;
 
-Music ResourceManager::music;
+Music ResourceManager::musicMenu, ResourceManager::musicCaveman,
+		ResourceManager::musicAncient, ResourceManager::musicMedieval,
+		ResourceManager::musicPreModern, ResourceManager::musicModern;
+
+Music* ResourceManager::current;
 
 Font ResourceManager::font;
 
@@ -108,8 +112,23 @@ void ResourceManager::loadAssets()
 	if (!font.loadFromFile("Resources/Caveman.ttf"))
 		cout << "Error loading font." << endl;
 
-	//Music file
-	if (!music.openFromFile("Resources/holoBossaNova.wav"))
+	//Music files
+	if (!musicMenu.openFromFile("Resources/music_menu.wav"))
+		cout << "Error loading music." << endl;
+
+	if (!musicCaveman.openFromFile("Resources/music_caveman.wav"))
+		cout << "Error loading music." << endl;
+
+	if (!musicAncient.openFromFile("Resources/music_ancient.wav"))
+		cout << "Error loading music." << endl;
+
+	if (!musicMedieval.openFromFile("Resources/music_medieval.wav"))
+		cout << "Error loading music." << endl;
+
+	if (!musicPreModern.openFromFile("Resources/music_premodern.wav"))
+		cout << "Error loading music." << endl;
+
+	if (!musicModern.openFromFile("Resources/music_modern.wav"))
 		cout << "Error loading music." << endl;
 
 	//Background file
@@ -251,10 +270,40 @@ Font ResourceManager::loadFont()
 	return font;
 }
 
-void ResourceManager::playMusic()
+void ResourceManager::playMusic(int choice)
 {
-	music.setVolume(25.f);
-	music.play();
+	switch (choice)
+	{
+	case 1:
+		current = &musicMenu;
+		current->play();
+		break;
+	case 2:
+		current->stop();
+		current = &musicCaveman;
+		current->play();
+		break;
+	case 3:
+		current->stop();
+		current = &musicAncient;
+		current->play();
+		break;
+	case 4:
+		current->stop();
+		current = &musicMedieval;
+		current->play();
+		break;
+	case 5:
+		current->stop();
+		current = &musicPreModern;
+		current->setVolume(50.f);
+		current->play();
+		break;
+	case 6:
+		current->stop();
+		current = &musicModern;
+		current->play();
+	}
 }
 
 void ResourceManager::playEraChangeSound()
