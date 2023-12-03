@@ -1,7 +1,10 @@
 #include <GameController.hpp>
+#include <ResourceManager.hpp>
 
 int main()
 {
+	ResourceManager::loadAssets();
+
     GameController game;
 
 	game.gameLoop();

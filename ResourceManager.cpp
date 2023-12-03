@@ -1,8 +1,28 @@
 #include <ResourceManager.hpp>
 
+Texture ResourceManager::backgroundTex,
+		ResourceManager::followerTexCaveman, ResourceManager::followerTexAncient, ResourceManager::followerTexMedieval,
+		ResourceManager::followerTexPreModern,ResourceManager::followerTexModern,
+		ResourceManager::playerTexCaveman, ResourceManager::playerTexAncient, ResourceManager::playerTexMedieval,
+		ResourceManager::playerTexPreModern, ResourceManager::playerTexModern,
+		ResourceManager::resourceTexCaveman, ResourceManager::resourceTexAncient, ResourceManager::resourceTexMedieval,
+		ResourceManager::resourceTexPreModern, ResourceManager::resourceTexModern,
+		ResourceManager::wallTexCaveman, ResourceManager::wallTexAncient, ResourceManager::wallTexMedieval,
+		ResourceManager::wallTexPreModern, ResourceManager::wallTexModern,
+		ResourceManager::obstTexCaveman, ResourceManager::obstTexAncient, ResourceManager::obstTexMedieval,
+		ResourceManager::obstTexPreModern, ResourceManager::obstTexModern;
+
+Music ResourceManager::music;
+
+Font ResourceManager::font;
+
+SoundBuffer ResourceManager::buffer;
+
+Sound ResourceManager::sound;
+
 ResourceManager::ResourceManager() {}
 
-Texture ResourceManager::loadPlayerTexture(int currentEra)
+void ResourceManager::loadAssets()
 {
 	//Player Textures
 	if (!playerTexCaveman.loadFromFile("Resources/player_caveman.png"))
@@ -20,6 +40,89 @@ Texture ResourceManager::loadPlayerTexture(int currentEra)
 	if (!playerTexModern.loadFromFile("Resources/player_modern.png"))
 		cout << "Error loading player texture" << endl;
 
+	//Resource Textures
+	if (!resourceTexCaveman.loadFromFile("Resources/resource_caveman.png"))
+		cout << "Error loading resource texture" << endl;
+
+	if (!resourceTexAncient.loadFromFile("Resources/resource_ancient.png"))
+		cout << "Error loading resource texture" << endl;
+
+	if (!resourceTexMedieval.loadFromFile("Resources/resource_medieval.png"))
+		cout << "Error loading resource texture" << endl;
+
+	if (!resourceTexPreModern.loadFromFile("Resources/resource_premodern.png"))
+		cout << "Error loading resource texture" << endl;
+
+	if (!resourceTexModern.loadFromFile("Resources/resource_modern.png"))
+		cout << "Error loading resource texture" << endl;
+
+	//Follower Textures
+	if (!followerTexCaveman.loadFromFile("Resources/follower_caveman.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexAncient.loadFromFile("Resources/follower_ancient.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexMedieval.loadFromFile("Resources/follower_medieval.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexPreModern.loadFromFile("Resources/follower_premodern.png"))
+		cout << "Error loading follower texture" << endl;
+
+	if (!followerTexModern.loadFromFile("Resources/follower_modern.png"))
+		cout << "Error loading follower texture" << endl;
+
+	//Wall Textures
+	if (!wallTexCaveman.loadFromFile("Resources/wall_caveman.png"))
+		cout << "Error loading wall texture" << endl;
+
+	if (!wallTexAncient.loadFromFile("Resources/wall_ancient.png"))
+		cout << "Error loading wall texture" << endl;
+
+	if (!wallTexMedieval.loadFromFile("Resources/wall_medieval.png"))
+		cout << "Error loading wall texture" << endl;
+
+	if (!wallTexPreModern.loadFromFile("Resources/wall_premodern.png"))
+		cout << "Error loading wall texture" << endl;
+
+	if (!wallTexModern.loadFromFile("Resources/wall_modern.png"))
+		cout << "Error loading wall texture" << endl;
+
+	//Obstacle Textures
+	if (!obstTexCaveman.loadFromFile("Resources/obst_caveman.png"))
+		cout << "Error loading obst texture" << endl;
+
+	if (!obstTexAncient.loadFromFile("Resources/obst_ancient.png"))
+		cout << "Error loading obst texture" << endl;
+
+	if (!obstTexMedieval.loadFromFile("Resources/obst_medieval.png"))
+		cout << "Error loading obst texture" << endl;
+
+	if (!obstTexPreModern.loadFromFile("Resources/obst_premodern.png"))
+		cout << "Error loading obst texture" << endl;
+
+	if (!obstTexModern.loadFromFile("Resources/obst_modern.png"))
+		cout << "Error loading obst texture" << endl;
+
+	//Font file
+	if (!font.loadFromFile("Resources/Caveman.ttf"))
+		cout << "Error loading font." << endl;
+
+	//Music file
+	if (!music.openFromFile("Resources/holoBossaNova.wav"))
+		cout << "Error loading music." << endl;
+
+	//Background file
+	if (!backgroundTex.loadFromFile("Resources/grass-bg.jpg"))
+		cout << "Error loading background." << endl;
+
+	//Sound file
+	if (!buffer.loadFromFile("Resources/sfx_eraChange.wav"))
+		cout << "Error loading sound." << endl;
+}
+
+Texture ResourceManager::loadPlayerTexture(int currentEra)
+{
 	switch (currentEra)
 	{
 	case 1:
@@ -44,22 +147,6 @@ Texture ResourceManager::loadPlayerTexture(int currentEra)
 
 Texture ResourceManager::loadResourceTexture(int currentEra)
 {
-	//Resource Textures
-	if (!resourceTexCaveman.loadFromFile("Resources/resource_caveman.png"))
-		cout << "Error loading resource texture" << endl;
-
-	if (!resourceTexAncient.loadFromFile("Resources/resource_ancient.png"))
-		cout << "Error loading resource texture" << endl;
-
-	if (!resourceTexMedieval.loadFromFile("Resources/resource_medieval.png"))
-		cout << "Error loading resource texture" << endl;
-
-	if (!resourceTexPreModern.loadFromFile("Resources/resource_premodern.png"))
-		cout << "Error loading resource texture" << endl;
-
-	if (!resourceTexModern.loadFromFile("Resources/resource_modern.png"))
-		cout << "Error loading resource texture" << endl;
-
 	switch (currentEra)
 	{
 		case 1:
@@ -84,22 +171,6 @@ Texture ResourceManager::loadResourceTexture(int currentEra)
 
 Texture ResourceManager::loadFollowerTexture(int currentEra)
 {
-	//Follower Textures
-	if (!followerTexCaveman.loadFromFile("Resources/follower_caveman.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!followerTexAncient.loadFromFile("Resources/follower_ancient.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!followerTexMedieval.loadFromFile("Resources/follower_medieval.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!followerTexPreModern.loadFromFile("Resources/follower_premodern.png"))
-		cout << "Error loading follower texture" << endl;
-
-	if (!followerTexModern.loadFromFile("Resources/follower_modern.png"))
-		cout << "Error loading follower texture" << endl;
-
 	switch (currentEra)
 	{
 	case 1:
@@ -124,22 +195,6 @@ Texture ResourceManager::loadFollowerTexture(int currentEra)
 
 Texture ResourceManager::loadWallTexture(int currentEra)
 {
-	//Wall Textures
-	if (!wallTexCaveman.loadFromFile("Resources/wall_caveman.png"))
-		cout << "Error loading wall texture" << endl;
-
-	if (!wallTexAncient.loadFromFile("Resources/wall_ancient.png"))
-		cout << "Error loading wall texture" << endl;
-
-	if (!wallTexMedieval.loadFromFile("Resources/wall_medieval.png"))
-		cout << "Error loading wall texture" << endl;
-
-	if (!wallTexPreModern.loadFromFile("Resources/wall_premodern.png"))
-		cout << "Error loading wall texture" << endl;
-
-	if (!wallTexModern.loadFromFile("Resources/wall_modern.png"))
-		cout << "Error loading wall texture" << endl;
-
 	switch (currentEra)
 	{
 	case 1:
@@ -164,22 +219,6 @@ Texture ResourceManager::loadWallTexture(int currentEra)
 
 Texture ResourceManager::loadObstTexture(int currentEra)
 {
-	//Obstacle Textures
-	if (!obstTexCaveman.loadFromFile("Resources/obst_caveman.png"))
-		cout << "Error loading obst texture" << endl;
-
-	if (!obstTexAncient.loadFromFile("Resources/obst_ancient.png"))
-		cout << "Error loading obst texture" << endl;
-
-	if (!obstTexMedieval.loadFromFile("Resources/obst_medieval.png"))
-		cout << "Error loading obst texture" << endl;
-
-	if (!obstTexPreModern.loadFromFile("Resources/obst_premodern.png"))
-		cout << "Error loading obst texture" << endl;
-
-	if (!obstTexModern.loadFromFile("Resources/obst_modern.png"))
-		cout << "Error loading obst texture" << endl;
-
 	switch (currentEra)
 	{
 	case 1:
@@ -204,38 +243,22 @@ Texture ResourceManager::loadObstTexture(int currentEra)
 
 Texture ResourceManager::loadBackgroundTexture()
 {
-	//Putting this in constructor crashes game. Maybe size issue?
-	if (!backgroundTex.loadFromFile("Resources/grass-bg.jpg"))
-		cout << "Error loading background." << endl;
-
 	return backgroundTex;
 }
 
 Font ResourceManager::loadFont()
 {
-	//Font file
-	if (!font.loadFromFile("Resources/Caveman.ttf"))
-		cout << "Error loading font." << endl;
-
 	return font;
 }
 
 void ResourceManager::playMusic()
 {
-	//Music files
-	if (!music.openFromFile("Resources/holoBossaNova.wav"))
-		cout << "Error loading music." << endl;
-
 	music.setVolume(25.f);
 	music.play();
 }
 
 void ResourceManager::playEraChangeSound()
 {
-	//Putting this in constructor also crashes
-	if (!buffer.loadFromFile("Resources/sfx_eraChange.wav"))
-		cout << "Error loading sound." << endl;
-
 	sound.setBuffer(buffer);
 
 	sound.play();

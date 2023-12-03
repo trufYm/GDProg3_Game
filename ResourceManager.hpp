@@ -15,7 +15,7 @@ using namespace sf;
 class ResourceManager
 {
 protected:
-	Texture backgroundTex,
+	static Texture backgroundTex,
 
 		followerTexCaveman,
 		followerTexAncient,
@@ -47,34 +47,36 @@ protected:
 		obstTexPreModern,
 		obstTexModern;
 
-	Music music;
+	static Music music;
 
-	Font font;
+	static Font font;
 
-	SoundBuffer buffer;
+	static SoundBuffer buffer;
 
-	Sound sound;
+	static Sound sound;
 
 public:
 	ResourceManager();
 
-	Texture loadPlayerTexture(int currentEra);
+	static void loadAssets();
 
-	Texture loadResourceTexture(int currentEra);
+	static Texture loadPlayerTexture(int currentEra);
 
-	Texture loadFollowerTexture(int currentEra);
+	static Texture loadResourceTexture(int currentEra);
 
-	Texture loadWallTexture(int currentEra);
+	static Texture loadFollowerTexture(int currentEra);
 
-	Texture loadObstTexture(int currentEra);
+	static Texture loadWallTexture(int currentEra);
 
-	Texture loadBackgroundTexture();
+	static Texture loadObstTexture(int currentEra);
 
-	Font loadFont();
+	static Texture loadBackgroundTexture();
 
-	void playMusic();
+	static Font loadFont();
 
-	void playEraChangeSound();
+	static void playMusic();
+
+	static void playEraChangeSound();
 };
 
 #endif
