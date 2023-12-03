@@ -3,7 +3,7 @@
 GameController::GameController()
 {
     window.create(VideoMode(1280, 960), "GDPROG3 MCO");
-    window.setFramerateLimit(60);     //used for testing framerate independent gameplay
+    //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
 
     view1.setSize(1280, 960);
 
@@ -35,7 +35,6 @@ void GameController::detectPlayerCollision()
 
             npcList.erase(npcList.begin() + i);
         }
-            
     }
 
     for (int i = 0; i < wallList.size(); i++)

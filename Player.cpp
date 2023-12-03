@@ -8,7 +8,7 @@ Player::Player() //Default constructor
 
     sprite.setTexture(texture);
     sprite.setScale(2, 2);
-    sprite.setPosition(1000, 1000);
+    sprite.setPosition(2000, 2000);
 
     speed = 10;
 

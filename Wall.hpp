@@ -27,11 +27,11 @@ private:
 public:
 	Wall(Vector2f mapSize);
 
-	void movePlayer(Player& player);
+	void movePlayer(Player& player) const;
 
 	void changeCurrentEra(int era);
 
-	FloatRect getCollisionBounds();
+	void changeCollisionBounds();
 
 	void drawTo(RenderWindow& window) const;
 
