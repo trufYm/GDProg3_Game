@@ -4,8 +4,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio/Music.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio/Sound.hpp>
 #include <SFML/System.hpp>
-#include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
 
 using namespace std;
@@ -50,6 +51,10 @@ protected:
 
 	Font font;
 
+	SoundBuffer buffer;
+
+	Sound sound;
+
 public:
 	ResourceManager();
 
@@ -68,6 +73,8 @@ public:
 	Font loadFont();
 
 	void playMusic();
+
+	void playEraChangeSound();
 };
 
 #endif

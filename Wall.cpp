@@ -10,8 +10,8 @@ Wall::Wall(Vector2f mapSize, int ver)
 
     version = ver;
 
-    pos.x = random() % int(mapSize.x);
-    pos.y = random() % int(mapSize.y);
+    pos.x = float(random() % int(mapSize.x));
+    pos.y = float(random() % int(mapSize.y));
 
     if (version == 0)
     {

@@ -1,8 +1,6 @@
 #include <ResourceManager.hpp>
 
-ResourceManager::ResourceManager() 
-{
-}
+ResourceManager::ResourceManager() {}
 
 Texture ResourceManager::loadPlayerTexture(int currentEra)
 {
@@ -228,5 +226,17 @@ void ResourceManager::playMusic()
 	if (!music.openFromFile("Resources/holoBossaNova.wav"))
 		cout << "Error loading music." << endl;
 
+	music.setVolume(25.f);
 	music.play();
+}
+
+void ResourceManager::playEraChangeSound()
+{
+	//Putting this in constructor also crashes
+	if (!buffer.loadFromFile("Resources/sfx_eraChange.wav"))
+		cout << "Error loading sound." << endl;
+
+	sound.setBuffer(buffer);
+
+	sound.play();
 }

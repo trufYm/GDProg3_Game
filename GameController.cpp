@@ -2,7 +2,7 @@
 
 GameController::GameController()
 {
-    window.create(VideoMode(1280, 960), "GDPROG3 MCO");
+    window.create(VideoMode(1280, 960), "EPOCH");
     //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
 
     view1.setSize(1280, 960);
@@ -58,51 +58,48 @@ void GameController::detectPlayerCollision()
 //Check how many followers player has and change era accordingly
 void GameController::checkFollowerCount()
 {
+    int oldEra = currentEra;
+
     if (followerList.size() >= 11 && followerList.size() < 20)
-    {
         currentEra = 2;
-        player.changeCurrentEra(currentEra);
-    }
         
     else if (followerList.size() >= 21 && followerList.size() < 30)
-    {
         currentEra = 3;
-        player.changeCurrentEra(currentEra);
-    }
         
     else if (followerList.size() >= 31 && followerList.size() < 40)
-    {
         currentEra = 4;
-        player.changeCurrentEra(currentEra);
-    }
 
     else if (followerList.size() >= 41 && followerList.size() < 50)
-    {
         currentEra = 5;
+
+    if (currentEra != oldEra)
+    {
         player.changeCurrentEra(currentEra);
-    }
 
-    //Probably (definitely) inefficient but :D
-    for (int i = 0; i < followerList.size(); i++)
-    {
-        (*followerList[i]).changeCurrentEra(currentEra);
-    }
+        //Probably (definitely) inefficient but :D
+        for (int i = 0; i < followerList.size(); i++)
+        {
+            (*followerList[i]).changeCurrentEra(currentEra);
+        }
 
-    for (int i = 0; i < npcList.size(); i++)
-    {
-        (*npcList[i]).changeCurrentEra(currentEra);
-    }
+        for (int i = 0; i < npcList.size(); i++)
+        {
+            (*npcList[i]).changeCurrentEra(currentEra);
+        }
 
-    for (int i = 0; i < wallList.size(); i++)
-    {
-        (*wallList[i]).changeCurrentEra(currentEra);
-    }
+        for (int i = 0; i < wallList.size(); i++)
+        {
+            (*wallList[i]).changeCurrentEra(currentEra);
+        }
 
-    for (int i = 0; i < obstList.size(); i++)
-    {
-        (*obstList[i]).changeCurrentEra(currentEra);
-    }
+        for (int i = 0; i < obstList.size(); i++)
+        {
+            (*obstList[i]).changeCurrentEra(currentEra);
+        }
 
+        resource.playEraChangeSound();
+    }
+   
     if (followerList.size() == 50)
         menu.drawWinScreen(window);
 }
@@ -203,6 +200,8 @@ void GameController::eventHandler(Event event)
 //Run *beat drops* ez4ence ence ence
 void GameController::gameLoop()
 {
+
+
     menu.drawMainMenu(window);
 
     while (window.isOpen())
