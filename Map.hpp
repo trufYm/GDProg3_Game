@@ -3,9 +3,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio/Music.hpp>
 #include <SFML/System.hpp>
-#include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
 #include <ResourceManager.hpp>
 #include <Player.hpp>
@@ -17,13 +15,17 @@ using namespace sf;
 class Map : protected ResourceManager
 {
 private:
-	Vector2f mapSize, mapBorder;
+	Vector2f mapSize, mapBorder, spriteSize;
 
 	Texture bgTexture;
 	Sprite background;
 
+	int currentEra;
+
 public:
 	Map();
+
+	void changeCurrentEra(int era);
 
 	void movePlayer(Player* player, vector<Follower*>& npcList, Vector2f playerNewPos);
 
@@ -32,6 +34,8 @@ public:
 	void drawTo(RenderWindow& window) const;
 
 	Vector2f getMapBorder() const;
+
+	Vector2f getMapSize() const;
 };
 
 #endif

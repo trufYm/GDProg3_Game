@@ -3,14 +3,13 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio/Music.hpp>
 #include <SFML/System.hpp>
-#include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
 #include <ResourceManager.hpp>
 #include <Player.hpp>
 #include <Follower.hpp>
 #include <Map.hpp>
+#include <Wall.hpp>
 #include <Menu.hpp>
 
 using namespace std;
@@ -31,13 +30,21 @@ private:
 
     vector<Follower*> npcList, followerList;
 
+    vector<Wall*> wallList, obstList;
+
     Clock clock;
 
     View view1;
 
+    Sprite rocket;
+
+    Texture rocketTex;
+
+    RectangleShape rect;
+
     float time_interval;
     
-    int currentEra;
+    int currentEra, oldEra;
 
 public:
     GameController();
@@ -47,6 +54,8 @@ public:
     void checkFollowerCount();
 
     void updateGameState();
+
+    void drawWinTransition();
 
     void drawElementsToWindow();
 

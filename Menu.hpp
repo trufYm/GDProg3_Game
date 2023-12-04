@@ -3,11 +3,10 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio/Music.hpp>
 #include <SFML/System.hpp>
-#include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
 #include <ResourceManager.hpp>
+#include <Player.hpp>
 
 using namespace std;
 using namespace sf;
@@ -15,7 +14,11 @@ using namespace sf;
 class Menu : protected ResourceManager
 {
 private:
-	Text titleText, subText;
+	Text titleText, subText1, subText2;
+
+	RectangleShape button1, button2;
+
+	RenderWindow& window;
 
 	Sprite background;
 	Texture bgTex;
@@ -23,11 +26,11 @@ private:
 	Font font;
 
 public:
-	Menu();
+	Menu(RenderWindow& mainWindow);
 
-	void drawMainMenu(RenderWindow& window);
+	void drawMainMenu();
 
-	void drawWinScreen(RenderWindow& window);
+	void drawWinScreen();
 };
 
 #endif

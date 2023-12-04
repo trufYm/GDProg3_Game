@@ -2,13 +2,31 @@
 
 Map::Map()
 {
-	bgTexture = loadBackgroundTexture();
+	currentEra = 1;
 
+	bgTexture = loadBackgroundTexture(currentEra);
+
+	background.setScale(6.3f, 6.3f);
 	background.setTexture(bgTexture);
 
-	mapSize = Vector2f(bgTexture.getSize());
+	spriteSize.x = bgTexture.getSize().x * background.getScale().x;
+	spriteSize.y = bgTexture.getSize().y * background.getScale().y;
+
+	mapSize = spriteSize;
 	mapBorder = { mapSize.x - 700, mapSize.y - 500 };
 };
+
+void Map::changeCurrentEra(int era)
+{
+	if (currentEra == era)
+		return;
+
+	currentEra = era;
+
+	bgTexture = loadBackgroundTexture(currentEra);
+
+	background.setTexture(bgTexture);
+}
 
 //Move player and followers to other side of map
 void Map::movePlayer(Player* player, vector<Follower*>& npcList, Vector2f playerNewPos)
@@ -65,4 +83,9 @@ void Map::drawTo(RenderWindow& window) const
 Vector2f Map::getMapBorder() const
 {
 	return mapBorder;
+}
+
+Vector2f Map::getMapSize() const
+{
+	return mapSize;
 }

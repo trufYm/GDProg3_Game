@@ -26,6 +26,8 @@ private:
         left,
         right;
 
+    int currentEra;
+
 public:
     Player();
 
@@ -33,7 +35,9 @@ public:
 
     void movePlayer();
 
-    void changeSpriteTexture(int currentEra);
+    void autoMove();
+
+    void changeCurrentEra(int era);
 
     void drawTo(RenderWindow& window) const;
 
@@ -44,6 +48,10 @@ public:
     float getSpeed() const;
 
     void setPosition(Vector2f pos);
+
+    void setPosition(float x, float y);
+
+    void changeSpriteColor();
 };
 
 #endif // !PLAYER_H
