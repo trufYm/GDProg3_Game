@@ -118,6 +118,8 @@ void Follower::changeToFollower()
 	texture = loadFollowerTexture(currentEra);
 
 	rect.setTexture(texture);
+
+	playFollowerNoise();
 }
 
 //HELPER FUNCTIONS
