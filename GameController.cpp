@@ -1,6 +1,6 @@
 #include <GameController.hpp>
 
-GameController::GameController()
+GameController::GameController() : menu(window)
 {
     window.create(VideoMode(1280, 960), "EPOCH");
     //window.setFramerateLimit(60);     //used for testing framerate independent gameplay
@@ -69,13 +69,13 @@ void GameController::checkFollowerCount()
     if (followerList.size() >= 11 && followerList.size() < 20)
         currentEra = 2;
         
-    else if (followerList.size() >= 31 && followerList.size() < 40)
+    else if (followerList.size() >= 21 && followerList.size() < 30)
         currentEra = 3;
         
-    else if (followerList.size() >= 51 && followerList.size() < 60)
+    else if (followerList.size() >= 31 && followerList.size() < 40)
         currentEra = 4;
 
-    else if (followerList.size() >= 81 && followerList.size() < 90)
+    else if (followerList.size() >= 41 && followerList.size() < 50)
         currentEra = 5;
 
     if (currentEra != oldEra)
@@ -103,12 +103,14 @@ void GameController::checkFollowerCount()
             (*obstList[i]).changeCurrentEra(currentEra);
         }
 
+        map.changeCurrentEra(currentEra);
+
         resource.playEraChange(currentEra);
         resource.playMusic(currentEra + 1);
     }
    
-    if (followerList.size() == 100)
-        menu.drawWinScreen(window);
+    if (followerList.size() == 50)
+        drawWinTransition();
 }
 
 //Updates current gamestate
@@ -151,6 +153,54 @@ void GameController::updateGameState()
     map.detectPlayer(&player, followerList);
 }
 
+void GameController::drawWinTransition()
+{
+    rocketTex = resource.loadRocket();
+
+    rocket.setTexture(rocketTex);
+    rocket.setScale(3, 3);
+    rocket.setPosition(player.getPosition().x + 500.f, player.getPosition().y);
+
+    resource.pauseMusic();
+    resource.playEraChange(6);
+
+    FloatRect rocketBounds = rocket.getGlobalBounds();
+    rocketBounds.left = rocketBounds.left + 50;
+
+    while (window.isOpen())
+    {
+        window.clear();
+        window.setView(view1);
+
+        view1.setCenter(player.getPosition());
+
+        float dt = 0;
+
+        dt = clock.restart().asSeconds();
+
+        if (!player.getGlobalBounds().intersects(rocketBounds))
+            player.autoMove();
+
+        if (player.getGlobalBounds().intersects(rocketBounds))
+        {
+            player.changeSpriteColor();
+            rocket.move(0, -5.f * dt * 60.f);
+        }
+
+        map.drawTo(window);
+        player.drawTo(window);
+        window.draw(rocket);
+
+        window.display();
+
+        if (rocket.getPosition().y < player.getPosition().y - float(window.getSize().y / 2) - 100.f)
+        {
+            menu.drawWinScreen();
+        }
+
+    }
+}
+
 //Draws all elements and sets window view
 void GameController::drawElementsToWindow()
 {
@@ -191,7 +241,7 @@ void GameController::drawElementsToWindow()
         rect.setFillColor(Color(255, 255, 51, 160));
         window.draw(rect);
         window.display();
-        sleep(milliseconds(100));
+        sleep(milliseconds(150));
         rect.setFillColor(Color::Transparent);
     }
 
@@ -218,7 +268,7 @@ void GameController::eventHandler(Event event)
 //Run *beat drops* ez4ence ence ence
 void GameController::gameLoop()
 {
-    menu.drawMainMenu(window);
+    menu.drawMainMenu();
 
     resource.playMusic(2);
     resource.playEraChange(1);

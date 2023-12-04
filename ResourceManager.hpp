@@ -15,7 +15,14 @@ using namespace sf;
 class ResourceManager
 {
 protected:
-	static Texture backgroundTex,
+	static Texture rocketTex,
+		
+		bgTexCaveman,
+		bgTexAncient,
+		bgTexMedieval,
+		bgTexPreModern,
+		bgTexModern,
+		bgTexEnd,
 
 		followerTexCaveman,
 		followerTexAncient,
@@ -59,14 +66,15 @@ protected:
 	static Font font;
 
 	static SoundBuffer bufferEraChange,
-					bufferCaveman,
-					bufferAncient,
-					bufferMedieval,
-					bufferPreModern,
-					bufferModern,
-					bufferEnd;
+				bufferCaveman, bufferAncient,
+				bufferMedieval, bufferPreModern,
+				bufferModern, bufferEnd,
+				bufferFollower1, bufferFollower2,
+				bufferFollower3, bufferFollower4,
+				bufferFollower5, bufferFollower6,
+				bufferFollower7;
 
-	static Sound sound1, sound2;
+	static Sound sound1, sound2, sound3;
 
 public:
 	ResourceManager();
@@ -83,13 +91,19 @@ public:
 
 	static Texture loadObstTexture(int currentEra);
 
-	static Texture loadBackgroundTexture();
+	static Texture loadBackgroundTexture(int currentEra);
+
+	static Texture loadRocket();
 
 	static Font loadFont();
 
 	static void playMusic(int choice);
 
 	static void playEraChange(int choice);
+
+	static void pauseMusic();
+
+	static void playFollowerNoise();
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include <ResourceManager.hpp>
 
-Texture ResourceManager::backgroundTex,
+Texture ResourceManager::bgTexCaveman, ResourceManager::bgTexAncient, ResourceManager::bgTexMedieval,
+		ResourceManager::bgTexPreModern, ResourceManager::bgTexModern, ResourceManager::bgTexEnd,
 		ResourceManager::followerTexCaveman, ResourceManager::followerTexAncient, ResourceManager::followerTexMedieval,
 		ResourceManager::followerTexPreModern,ResourceManager::followerTexModern,
 		ResourceManager::playerTexCaveman, ResourceManager::playerTexAncient, ResourceManager::playerTexMedieval,
@@ -10,7 +11,8 @@ Texture ResourceManager::backgroundTex,
 		ResourceManager::wallTexCaveman, ResourceManager::wallTexAncient, ResourceManager::wallTexMedieval,
 		ResourceManager::wallTexPreModern, ResourceManager::wallTexModern,
 		ResourceManager::obstTexCaveman, ResourceManager::obstTexAncient, ResourceManager::obstTexMedieval,
-		ResourceManager::obstTexPreModern, ResourceManager::obstTexModern;
+		ResourceManager::obstTexPreModern, ResourceManager::obstTexModern,
+		ResourceManager::rocketTex;
 
 Music ResourceManager::musicMenu, ResourceManager::musicCaveman,
 		ResourceManager::musicAncient, ResourceManager::musicMedieval,
@@ -23,92 +25,95 @@ Font ResourceManager::font;
 SoundBuffer ResourceManager::bufferEraChange, ResourceManager::bufferCaveman,
 			ResourceManager::bufferAncient, ResourceManager::bufferMedieval,
 			ResourceManager::bufferPreModern, ResourceManager::bufferModern,
-			ResourceManager::bufferEnd;
+			ResourceManager::bufferEnd, ResourceManager::bufferFollower1,
+			ResourceManager::bufferFollower2, ResourceManager::bufferFollower3,
+			ResourceManager::bufferFollower4, ResourceManager::bufferFollower5,
+			ResourceManager::bufferFollower6, ResourceManager::bufferFollower7;
 
-Sound ResourceManager::sound1, ResourceManager::sound2;
+Sound ResourceManager::sound1, ResourceManager::sound2, ResourceManager::sound3;
 
 ResourceManager::ResourceManager() {}
 
 void ResourceManager::loadAssets()
 {
 	//Player Textures
-	if (!playerTexCaveman.loadFromFile("Resources/player_caveman.png"))
+	if (!playerTexCaveman.loadFromFile("Resources/Sprites/player_caveman.png"))
 		cout << "Error loading player texture" << endl;
 
-	if (!playerTexAncient.loadFromFile("Resources/player_ancient.png"))
+	if (!playerTexAncient.loadFromFile("Resources/Sprites/player_ancient.png"))
 		cout << "Error loading player texture" << endl;
 
-	if (!playerTexMedieval.loadFromFile("Resources/player_medieval.png"))
+	if (!playerTexMedieval.loadFromFile("Resources/Sprites/player_medieval.png"))
 		cout << "Error loading player texture" << endl;
 
-	if (!playerTexPreModern.loadFromFile("Resources/player_premodern.png"))
+	if (!playerTexPreModern.loadFromFile("Resources/Sprites/player_premodern.png"))
 		cout << "Error loading player texture" << endl;
 
-	if (!playerTexModern.loadFromFile("Resources/player_modern.png"))
+	if (!playerTexModern.loadFromFile("Resources/Sprites/player_modern.png"))
 		cout << "Error loading player texture" << endl;
 
 	//Resource Textures
-	if (!resourceTexCaveman.loadFromFile("Resources/resource_caveman.png"))
+	if (!resourceTexCaveman.loadFromFile("Resources/Sprites/resource_caveman.png"))
 		cout << "Error loading resource texture" << endl;
 
-	if (!resourceTexAncient.loadFromFile("Resources/resource_ancient.png"))
+	if (!resourceTexAncient.loadFromFile("Resources/Sprites/resource_ancient.png"))
 		cout << "Error loading resource texture" << endl;
 
-	if (!resourceTexMedieval.loadFromFile("Resources/resource_medieval.png"))
+	if (!resourceTexMedieval.loadFromFile("Resources/Sprites/resource_medieval.png"))
 		cout << "Error loading resource texture" << endl;
 
-	if (!resourceTexPreModern.loadFromFile("Resources/resource_premodern.png"))
+	if (!resourceTexPreModern.loadFromFile("Resources/Sprites/resource_premodern.png"))
 		cout << "Error loading resource texture" << endl;
 
-	if (!resourceTexModern.loadFromFile("Resources/resource_modern.png"))
+	if (!resourceTexModern.loadFromFile("Resources/Sprites/resource_modern.png"))
 		cout << "Error loading resource texture" << endl;
 
 	//Follower Textures
-	if (!followerTexCaveman.loadFromFile("Resources/follower_caveman.png"))
+	if (!followerTexCaveman.loadFromFile("Resources/Sprites/follower_caveman.png"))
 		cout << "Error loading follower texture" << endl;
 
-	if (!followerTexAncient.loadFromFile("Resources/follower_ancient.png"))
+	if (!followerTexAncient.loadFromFile("Resources/Sprites/follower_ancient.png"))
 		cout << "Error loading follower texture" << endl;
 
-	if (!followerTexMedieval.loadFromFile("Resources/follower_medieval.png"))
+	if (!followerTexMedieval.loadFromFile("Resources/Sprites/follower_medieval.png"))
 		cout << "Error loading follower texture" << endl;
 
-	if (!followerTexPreModern.loadFromFile("Resources/follower_premodern.png"))
+	if (!followerTexPreModern.loadFromFile("Resources/Sprites/follower_premodern.png"))
 		cout << "Error loading follower texture" << endl;
 
-	if (!followerTexModern.loadFromFile("Resources/follower_modern.png"))
+	if (!followerTexModern.loadFromFile("Resources/Sprites/follower_modern.png"))
 		cout << "Error loading follower texture" << endl;
 
 	//Wall Textures
-	if (!wallTexCaveman.loadFromFile("Resources/wall_caveman.png"))
+	if (!wallTexCaveman.loadFromFile("Resources/Sprites/wall_caveman.png"))
 		cout << "Error loading wall texture" << endl;
 
-	if (!wallTexAncient.loadFromFile("Resources/wall_ancient.png"))
+	if (!wallTexAncient.loadFromFile("Resources/Sprites/wall_ancient.png"))
 		cout << "Error loading wall texture" << endl;
 
-	if (!wallTexMedieval.loadFromFile("Resources/wall_medieval.png"))
+	if (!wallTexMedieval.loadFromFile("Resources/Sprites/wall_medieval.png"))
 		cout << "Error loading wall texture" << endl;
 
-	if (!wallTexPreModern.loadFromFile("Resources/wall_premodern.png"))
+	if (!wallTexPreModern.loadFromFile("Resources/Sprites/wall_premodern.png"))
 		cout << "Error loading wall texture" << endl;
 
-	if (!wallTexModern.loadFromFile("Resources/wall_modern.png"))
+	if (!wallTexModern.loadFromFile("Resources/Sprites/wall_modern.png"))
 		cout << "Error loading wall texture" << endl;
 
 	//Obstacle Textures
-	if (!obstTexCaveman.loadFromFile("Resources/obst_caveman.png"))
+	if (!obstTexCaveman.loadFromFile("Resources/Sprites/obst_caveman.png"))
 		cout << "Error loading obst texture" << endl;
 
-	if (!obstTexAncient.loadFromFile("Resources/obst_ancient.png"))
+	if (!obstTexAncient.loadFromFile("Resources/Sprites/obst_ancient.png"))
 		cout << "Error loading obst texture" << endl;
 
-	if (!obstTexMedieval.loadFromFile("Resources/obst_medieval.png"))
+	if (!obstTexMedieval.loadFromFile("Resources/Sprites/obst_medieval.png"))
 		cout << "Error loading obst texture" << endl;
 
-	if (!obstTexPreModern.loadFromFile("Resources/obst_premodern.png"))
+	if (!obstTexPreModern.loadFromFile("Resources/Sprites/obst_premodern.png"))
 		cout << "Error loading obst texture" << endl;
 
-	if (!obstTexModern.loadFromFile("Resources/obst_modern.png"))
+	if (!obstTexModern.loadFromFile("Resources/Sprites/obst_modern.png"))
 		cout << "Error loading obst texture" << endl;
 
 	//Font file
@@ -116,49 +121,89 @@ void ResourceManager::loadAssets()
 		cout << "Error loading font." << endl;
 
 	//Music files
-	if (!musicMenu.openFromFile("Resources/music_menu.wav"))
+	if (!musicMenu.openFromFile("Resources/.wav/music_menu.wav"))
 		cout << "Error loading music." << endl;
 
-	if (!musicCaveman.openFromFile("Resources/music_caveman.wav"))
+	if (!musicCaveman.openFromFile("Resources/.wav/music_caveman.wav"))
 		cout << "Error loading music." << endl;
 
-	if (!musicAncient.openFromFile("Resources/music_ancient.wav"))
+	if (!musicAncient.openFromFile("Resources/.wav/music_ancient.wav"))
 		cout << "Error loading music." << endl;
 
-	if (!musicMedieval.openFromFile("Resources/music_medieval.wav"))
+	if (!musicMedieval.openFromFile("Resources/.wav/music_medieval.wav"))
 		cout << "Error loading music." << endl;
 
-	if (!musicPreModern.openFromFile("Resources/music_premodern.wav"))
+	if (!musicPreModern.openFromFile("Resources/.wav/music_premodern.wav"))
 		cout << "Error loading music." << endl;
 
-	if (!musicModern.openFromFile("Resources/music_modern.wav"))
+	if (!musicModern.openFromFile("Resources/.wav/music_modern.wav"))
 		cout << "Error loading music." << endl;
 
 	//Background file
-	if (!backgroundTex.loadFromFile("Resources/grass-bg.jpg"))
+	if (!bgTexCaveman.loadFromFile("Resources/Backgrounds/bg_caveman.png"))
+		cout << "Error loading background." << endl;
+
+	if (!bgTexAncient.loadFromFile("Resources/Backgrounds/bg_ancient.png"))
+		cout << "Error loading background." << endl;
+
+	if (!bgTexMedieval.loadFromFile("Resources/Backgrounds/bg_medieval.png"))
+		cout << "Error loading background." << endl;
+
+	if (!bgTexPreModern.loadFromFile("Resources/Backgrounds/bg_premodern.png"))
+		cout << "Error loading background." << endl;
+
+	if (!bgTexModern.loadFromFile("Resources/Backgrounds/bg_modern.png"))
+		cout << "Error loading background." << endl;
+
+	if (!bgTexEnd.loadFromFile("Resources/Backgrounds/bg_end.png"))
 		cout << "Error loading background." << endl;
 
 	//Sound files
-	if (!bufferEraChange.loadFromFile("Resources/sfx_eraChange.wav"))
+	if (!bufferEraChange.loadFromFile("Resources/.wav/sfx_eraChange.wav"))
 		cout << "Error loading sound." << endl;
 
-	if (!bufferCaveman.loadFromFile("Resources/Dramatic_Caveman.wav"))
+	if (!bufferCaveman.loadFromFile("Resources/.wav/Dramatic_Caveman.wav"))
 		cout << "Error loading sound." << endl;
 
-	if (!bufferAncient.loadFromFile("Resources/Dramatic_Ancient.wav"))
+	if (!bufferAncient.loadFromFile("Resources/.wav/Dramatic_Ancient.wav"))
 		cout << "Error loading sound." << endl;
 
-	if (!bufferMedieval.loadFromFile("Resources/Dramatic_Medieval.wav"))
+	if (!bufferMedieval.loadFromFile("Resources/.wav/Dramatic_Medieval.wav"))
 		cout << "Error loading sound." << endl;
 
-	if (!bufferPreModern.loadFromFile("Resources/Dramatic_Premodern.wav"))
+	if (!bufferPreModern.loadFromFile("Resources/.wav/Dramatic_Premodern.wav"))
 		cout << "Error loading sound." << endl;
 
-	if (!bufferModern.loadFromFile("Resources/Dramatic_Modern.wav"))
+	if (!bufferModern.loadFromFile("Resources/.wav/Dramatic_Modern.wav"))
 		cout << "Error loading sound." << endl;
 
-	if (!bufferEnd.loadFromFile("Resources/Dramatic_End.wav"))
+	if (!bufferEnd.loadFromFile("Resources/.wav/Dramatic_End.wav"))
 		cout << "Error loading sound." << endl;
+
+	if (!bufferFollower1.loadFromFile("Resources/.wav/follower1.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferFollower2.loadFromFile("Resources/.wav/follower2.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferFollower3.loadFromFile("Resources/.wav/follower3.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferFollower4.loadFromFile("Resources/.wav/follower4.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferFollower5.loadFromFile("Resources/.wav/follower5.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferFollower6.loadFromFile("Resources/.wav/follower6.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferFollower7.loadFromFile("Resources/.wav/follower7.wav"))
+		cout << "Error loading sound." << endl;
+
+	//Rocket
+	if (!rocketTex.loadFromFile("Resources/Sprites/rocket.png"))
+		cout << "Error loading rocket." << endl;
 }
 
 Texture ResourceManager::loadPlayerTexture(int currentEra)
@@ -281,9 +326,36 @@ Texture ResourceManager::loadObstTexture(int currentEra)
 	return obstTexCaveman;
 }
 
-Texture ResourceManager::loadBackgroundTexture()
+Texture ResourceManager::loadBackgroundTexture(int currentEra)
 {
-	return backgroundTex;
+	switch (currentEra)
+	{
+	case 1:
+		return bgTexCaveman;
+		break;
+	case 2:
+		return bgTexAncient;
+		break;
+	case 3:
+		return bgTexMedieval;
+		break;
+	case 4:
+		return bgTexPreModern;
+		break;
+	case 5:
+		return bgTexModern;
+		break;
+	case 6:
+		return bgTexEnd;
+		break;
+	}
+
+	return bgTexCaveman;
+}
+
+Texture ResourceManager::loadRocket()
+{
+	return rocketTex;
 }
 
 Font ResourceManager::loadFont()
@@ -363,4 +435,41 @@ void ResourceManager::playEraChange(int choice)
 		sound2.play();
 		break;
 	}
+}
+
+void ResourceManager::pauseMusic()
+{
+	current->pause();
+}
+
+void ResourceManager::playFollowerNoise()
+{
+	int count = rand() % 7;
+
+	switch (count)
+	{
+	case 0:
+		sound3.setBuffer(bufferFollower1);
+		break;
+	case 1:
+		sound3.setBuffer(bufferFollower2);
+		break;
+	case 2:
+		sound3.setBuffer(bufferFollower3);
+		break;
+	case 3:
+		sound3.setBuffer(bufferFollower4);
+		break;
+	case 4:
+		sound3.setBuffer(bufferFollower5);
+		break;
+	case 5:
+		sound3.setBuffer(bufferFollower6);
+		break;
+	case 6:
+		sound3.setBuffer(bufferFollower7);
+		break;
+	}
+
+	sound3.play();
 }

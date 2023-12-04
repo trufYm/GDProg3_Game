@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <ResourceManager.hpp>
+#include <Player.hpp>
 
 using namespace std;
 using namespace sf;
@@ -17,17 +18,19 @@ private:
 
 	RectangleShape button1, button2;
 
+	RenderWindow& window;
+
 	Sprite background;
 	Texture bgTex;
 
 	Font font;
 
 public:
-	Menu();
+	Menu(RenderWindow& mainWindow);
 
-	void drawMainMenu(RenderWindow& window);
+	void drawMainMenu();
 
-	void drawWinScreen(RenderWindow& window);
+	void drawWinScreen();
 };
 
 #endif

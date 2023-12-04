@@ -1,15 +1,16 @@
 #include <Menu.hpp>
 
-Menu::Menu()
+Menu::Menu(RenderWindow& mainWindow) : window(mainWindow)
 {
-	bgTex = loadBackgroundTexture();
+	bgTex = loadBackgroundTexture(1);
 
 	background.setTexture(bgTex);
-	
+	background.setScale(6.3f, 6.3f);
+
 	font = loadFont();
 }
 
-void Menu::drawMainMenu(RenderWindow& window)
+void Menu::drawMainMenu()
 {
 	Event event;
 	Vector2f windowSize = Vector2f(window.getSize());
@@ -104,7 +105,7 @@ void Menu::drawMainMenu(RenderWindow& window)
 	}
 }
 
-void Menu::drawWinScreen(RenderWindow& window)
+void Menu::drawWinScreen()
 {
 	Event event;
 	Vector2f windowSize = Vector2f(window.getSize());
@@ -123,7 +124,10 @@ void Menu::drawWinScreen(RenderWindow& window)
 	subText1.setFillColor(Color::White);
 	subText1.setStyle(Text::Regular);
 
-	playEraChange(6);
+	bgTex = loadBackgroundTexture(6);
+
+	background.setTexture(bgTex);
+	background.setScale(5, 5);
 
 	while (window.isOpen())
 	{

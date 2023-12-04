@@ -63,6 +63,22 @@ void Player::movePlayer()
     sprite.move(movement);
 }
 
+//Rocket
+void Player::autoMove()
+{
+    Vector2f movement;
+
+    float dt = 0;
+    float mult = 60.f;
+
+    dt = clock.restart().asSeconds();
+
+    movement.x += 3 * dt * mult;
+    movement.y = 0;
+
+    sprite.move(movement);
+}
+
 void Player::changeCurrentEra(int era)
 {
     if (currentEra == era)
@@ -105,4 +121,9 @@ void Player::setPosition(Vector2f pos)
 void Player::setPosition(float x, float y)
 {
     sprite.setPosition(x, y);
+}
+
+void Player::changeSpriteColor()
+{
+    sprite.setColor(Color::Transparent);
 }

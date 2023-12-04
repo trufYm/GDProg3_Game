@@ -15,13 +15,17 @@ using namespace sf;
 class Map : protected ResourceManager
 {
 private:
-	Vector2f mapSize, mapBorder;
+	Vector2f mapSize, mapBorder, spriteSize;
 
 	Texture bgTexture;
 	Sprite background;
 
+	int currentEra;
+
 public:
 	Map();
+
+	void changeCurrentEra(int era);
 
 	void movePlayer(Player* player, vector<Follower*>& npcList, Vector2f playerNewPos);
 

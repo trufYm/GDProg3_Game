@@ -35,6 +35,8 @@ public:
 
     void movePlayer();
 
+    void autoMove();
+
     void changeCurrentEra(int era);
 
     void drawTo(RenderWindow& window) const;
@@ -48,6 +50,8 @@ public:
     void setPosition(Vector2f pos);
 
     void setPosition(float x, float y);
+
+    void changeSpriteColor();
 };
 
 #endif // !PLAYER_H

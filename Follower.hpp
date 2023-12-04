@@ -22,9 +22,11 @@ private:
 
 	bool playerCollided;
 
-	float buffer, mult, time_interval;
+	float buffer, mult, time_interval, noiseTime;
 
 	int currentEra;
+
+	random_device random;
 
 public:
 	Follower(Vector2f mapSize, int era);

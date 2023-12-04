@@ -36,6 +36,10 @@ private:
 
     View view1;
 
+    Sprite rocket;
+
+    Texture rocketTex;
+
     RectangleShape rect;
 
     float time_interval;
@@ -50,6 +54,8 @@ public:
     void checkFollowerCount();
 
     void updateGameState();
+
+    void drawWinTransition();
 
     void drawElementsToWindow();
 
