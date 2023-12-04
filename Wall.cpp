@@ -24,7 +24,7 @@ Wall::Wall(Vector2f mapSize, int ver)
         collisionRect.top = sprite.getGlobalBounds().top + 50;
         collisionRect.left = sprite.getGlobalBounds().left + 45;
         collisionRect.height = sprite.getGlobalBounds().height - 50;
-        collisionRect.width = sprite.getGlobalBounds().width - 80;
+        collisionRect.width = sprite.getGlobalBounds().width - 90;
     }
 
     else if (version == 1)
@@ -35,24 +35,17 @@ Wall::Wall(Vector2f mapSize, int ver)
         sprite.setScale(2, 2);
         sprite.setPosition(pos);
 
-        collisionRect.top = sprite.getGlobalBounds().top;
-        collisionRect.left = sprite.getGlobalBounds().left;
-        collisionRect.height = sprite.getGlobalBounds().height;
-        collisionRect.width = sprite.getGlobalBounds().width;
+        collisionRect.top = sprite.getGlobalBounds().top + 30;
+        collisionRect.left = sprite.getGlobalBounds().left + 25;
+        collisionRect.height = sprite.getGlobalBounds().height - 35;
+        collisionRect.width = sprite.getGlobalBounds().width - 40;
     }
 }
 
-void Wall::changeCollisionBounds()
+void Wall::changeWallBounds()
 {
     switch (currentEra)
     {
-    case 1:
-        collisionRect.top = sprite.getGlobalBounds().top + 50;
-        collisionRect.left = sprite.getGlobalBounds().left + 45;
-        collisionRect.height = sprite.getGlobalBounds().height - 40;
-        collisionRect.width = sprite.getGlobalBounds().width - 80;
-        break;
-
     case 2:
         collisionRect.top = sprite.getGlobalBounds().top + 40;
         collisionRect.left = sprite.getGlobalBounds().left + 40;
@@ -80,6 +73,25 @@ void Wall::changeCollisionBounds()
         collisionRect.height = sprite.getGlobalBounds().height - 50;
         collisionRect.width = sprite.getGlobalBounds().width - 75;
         break;
+    }
+}
+
+void Wall::changeObstBounds()
+{
+    switch (currentEra)
+    {
+    case 2:
+        collisionRect.top = sprite.getGlobalBounds().top + 40;
+        collisionRect.left = sprite.getGlobalBounds().left + 10;
+        collisionRect.height = sprite.getGlobalBounds().height;
+        collisionRect.width = sprite.getGlobalBounds().width - 10;
+        break;
+
+    default:
+        collisionRect.top = sprite.getGlobalBounds().top;
+        collisionRect.left = sprite.getGlobalBounds().left;
+        collisionRect.height = sprite.getGlobalBounds().height;
+        collisionRect.width = sprite.getGlobalBounds().width;
     }
 }
 
@@ -144,7 +156,10 @@ void Wall::changeCurrentEra(int era)
     sprite.setTexture(texture);
     
     if (version == 0)
-        changeCollisionBounds();
+        changeWallBounds();
+
+    if (version == 1)
+        changeObstBounds();
 }
 
 void Wall::drawTo(RenderWindow& window) const

@@ -29,7 +29,9 @@ public:
 
 	void changeCurrentEra(int era);
 
-	void changeCollisionBounds();
+	void changeWallBounds();
+
+	void changeObstBounds();
 
 	void drawTo(RenderWindow& window) const;
 };

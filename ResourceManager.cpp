@@ -317,12 +317,13 @@ void ResourceManager::playMusic(int choice)
 	case 5:
 		current->stop();
 		current = &musicPreModern;
-		current->setVolume(30.f);
+		current->setVolume(25.f);
 		current->play();
 		break;
 	case 6:
 		current->stop();
 		current = &musicModern;
+		current->setVolume(25.f);
 		current->play();
 	}
 }

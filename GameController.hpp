@@ -36,9 +36,11 @@ private:
 
     View view1;
 
+    RectangleShape rect;
+
     float time_interval;
     
-    int currentEra;
+    int currentEra, oldEra;
 
 public:
     GameController();

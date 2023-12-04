@@ -11,6 +11,8 @@ GameController::GameController()
 
     resource.playMusic(1);
 
+    oldEra = 0;
+
     currentEra = 1;
 
     for (int i = 0; i < 60; i++)
@@ -26,6 +28,10 @@ GameController::GameController()
 
        obstList.push_back(newObst);
     }
+
+    rect.setFillColor(Color::Transparent);
+    rect.setSize(Vector2f(1280.f, 960.f));
+    rect.setScale(2, 2);
 }
 
 /*Detect collision between npc (follower) object and player.
@@ -58,7 +64,7 @@ void GameController::detectPlayerCollision()
 //Check how many followers player has and change era accordingly
 void GameController::checkFollowerCount()
 {
-    int oldEra = currentEra;
+    oldEra = currentEra;
 
     if (followerList.size() >= 11 && followerList.size() < 20)
         currentEra = 2;
@@ -179,7 +185,18 @@ void GameController::drawElementsToWindow()
         (*obstList[i]).drawTo(window);
     }
 
-    window.display();
+    if (currentEra != oldEra)
+    {
+        rect.setPosition(player.getPosition().x - 800, player.getPosition().y - 600);
+        rect.setFillColor(Color(255, 255, 51, 160));
+        window.draw(rect);
+        window.display();
+        sleep(milliseconds(100));
+        rect.setFillColor(Color::Transparent);
+    }
+
+    else
+        window.display(); 
 }
 
 //Handles events and sends them to appropriate function
