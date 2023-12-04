@@ -50,25 +50,25 @@ void Map::detectPlayer(Player* player, vector<Follower*>& npcList)
 
 	if (playerOldPos.x > mapBorder.x)
 	{
-		playerNewPos = { 700, playerOldPos.y };
+		playerNewPos = { mapBorder.x, playerOldPos.y };
 		movePlayer(player, npcList, playerNewPos);
 	}
 
 	if (playerOldPos.x < 700)
 	{
-		playerNewPos = { mapBorder.x, playerOldPos.y };
+		playerNewPos = { 700, playerOldPos.y };
 		movePlayer(player, npcList, playerNewPos);
 	}
 
 	if (playerOldPos.y > mapBorder.y)
 	{
-		playerNewPos = { playerOldPos.x, 500 };
+		playerNewPos = { playerOldPos.x, mapBorder.y };
 		movePlayer(player, npcList, playerNewPos);
 	}
 
 	if (playerOldPos.y < 500)
 	{
-		playerNewPos = { playerOldPos.x, mapBorder.y };
+		playerNewPos = { playerOldPos.x, 500 };
 		movePlayer(player, npcList, playerNewPos);
 	}
 }
