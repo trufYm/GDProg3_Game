@@ -81,7 +81,7 @@ void Follower::followPlayer(Vector2f playerPos, float dt)
 
 		if (noiseTime >= 5)
 		{
-			int rng = random() % 50;
+			int rng = random() % 40;
 
 			if (rng == 6)
 				playFollowerNoise();
