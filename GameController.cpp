@@ -155,6 +155,8 @@ void GameController::updateGameState()
 
 void GameController::drawWinTransition()
 {
+    Event event;
+
     rocketTex = resource.loadRocket();
 
     rocket.setTexture(rocketTex);
@@ -169,6 +171,12 @@ void GameController::drawWinTransition()
 
     while (window.isOpen())
     {
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::Closed || event.key.code == Keyboard::Escape)
+                window.close();
+        }
+
         window.clear();
         window.setView(view1);
 
@@ -197,7 +205,6 @@ void GameController::drawWinTransition()
         {
             menu.drawWinScreen();
         }
-
     }
 }
 
