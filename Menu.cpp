@@ -123,6 +123,8 @@ void Menu::drawWinScreen(RenderWindow& window)
 	subText1.setFillColor(Color::White);
 	subText1.setStyle(Text::Regular);
 
+	playEraChange(6);
+
 	while (window.isOpen())
 	{
 		while (window.pollEvent(event))

@@ -58,9 +58,15 @@ protected:
 
 	static Font font;
 
-	static SoundBuffer buffer;
+	static SoundBuffer bufferEraChange,
+					bufferCaveman,
+					bufferAncient,
+					bufferMedieval,
+					bufferPreModern,
+					bufferModern,
+					bufferEnd;
 
-	static Sound sound;
+	static Sound sound1, sound2;
 
 public:
 	ResourceManager();
@@ -83,7 +89,7 @@ public:
 
 	static void playMusic(int choice);
 
-	static void playEraChangeSound();
+	static void playEraChange(int choice);
 };
 
 #endif

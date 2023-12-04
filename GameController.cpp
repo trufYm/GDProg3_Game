@@ -63,13 +63,13 @@ void GameController::checkFollowerCount()
     if (followerList.size() >= 11 && followerList.size() < 20)
         currentEra = 2;
         
-    else if (followerList.size() >= 21 && followerList.size() < 30)
+    else if (followerList.size() >= 31 && followerList.size() < 40)
         currentEra = 3;
         
-    else if (followerList.size() >= 31 && followerList.size() < 40)
+    else if (followerList.size() >= 51 && followerList.size() < 60)
         currentEra = 4;
 
-    else if (followerList.size() >= 41 && followerList.size() < 50)
+    else if (followerList.size() >= 81 && followerList.size() < 90)
         currentEra = 5;
 
     if (currentEra != oldEra)
@@ -97,11 +97,11 @@ void GameController::checkFollowerCount()
             (*obstList[i]).changeCurrentEra(currentEra);
         }
 
-        resource.playEraChangeSound();
+        resource.playEraChange(currentEra);
         resource.playMusic(currentEra + 1);
     }
    
-    if (followerList.size() == 50)
+    if (followerList.size() == 100)
         menu.drawWinScreen(window);
 }
 
@@ -204,6 +204,7 @@ void GameController::gameLoop()
     menu.drawMainMenu(window);
 
     resource.playMusic(2);
+    resource.playEraChange(1);
 
     while (window.isOpen())
     {

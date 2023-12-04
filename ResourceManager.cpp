@@ -20,9 +20,12 @@ Music* ResourceManager::current;
 
 Font ResourceManager::font;
 
-SoundBuffer ResourceManager::buffer;
+SoundBuffer ResourceManager::bufferEraChange, ResourceManager::bufferCaveman,
+			ResourceManager::bufferAncient, ResourceManager::bufferMedieval,
+			ResourceManager::bufferPreModern, ResourceManager::bufferModern,
+			ResourceManager::bufferEnd;
 
-Sound ResourceManager::sound;
+Sound ResourceManager::sound1, ResourceManager::sound2;
 
 ResourceManager::ResourceManager() {}
 
@@ -135,8 +138,26 @@ void ResourceManager::loadAssets()
 	if (!backgroundTex.loadFromFile("Resources/grass-bg.jpg"))
 		cout << "Error loading background." << endl;
 
-	//Sound file
-	if (!buffer.loadFromFile("Resources/sfx_eraChange.wav"))
+	//Sound files
+	if (!bufferEraChange.loadFromFile("Resources/sfx_eraChange.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferCaveman.loadFromFile("Resources/Dramatic_Caveman.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferAncient.loadFromFile("Resources/Dramatic_Ancient.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferMedieval.loadFromFile("Resources/Dramatic_Medieval.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferPreModern.loadFromFile("Resources/Dramatic_Premodern.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferModern.loadFromFile("Resources/Dramatic_Modern.wav"))
+		cout << "Error loading sound." << endl;
+
+	if (!bufferEnd.loadFromFile("Resources/Dramatic_End.wav"))
 		cout << "Error loading sound." << endl;
 }
 
@@ -296,7 +317,7 @@ void ResourceManager::playMusic(int choice)
 	case 5:
 		current->stop();
 		current = &musicPreModern;
-		current->setVolume(50.f);
+		current->setVolume(30.f);
 		current->play();
 		break;
 	case 6:
@@ -306,9 +327,39 @@ void ResourceManager::playMusic(int choice)
 	}
 }
 
-void ResourceManager::playEraChangeSound()
+void ResourceManager::playEraChange(int choice)
 {
-	sound.setBuffer(buffer);
+	sound1.setBuffer(bufferEraChange);
 
-	sound.play();
+	switch (choice)
+	{
+	case 1:
+		sound2.setBuffer(bufferCaveman);
+		sound2.play();
+		break;
+	case 2:
+		sound2.setBuffer(bufferAncient);
+		sound1.play();
+		sound2.play();
+		break;
+	case 3:
+		sound2.setBuffer(bufferMedieval);
+		sound1.play();
+		sound2.play();
+		break;
+	case 4:
+		sound2.setBuffer(bufferPreModern);
+		sound1.play();
+		sound2.play();
+		break;
+	case 5:
+		sound2.setBuffer(bufferModern);
+		sound1.play();
+		sound2.play();
+		break;
+	case 6:
+		sound2.setBuffer(bufferEnd);
+		sound2.play();
+		break;
+	}
 }
